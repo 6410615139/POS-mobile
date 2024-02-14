@@ -1,7 +1,18 @@
 # mac
 
-[Document](https://reactnative.dev/docs/environment-setup?guide=native)
+[Document](https://reactnative.dev/docs/environment-setup?os=windows&guide=quickstart&platform=ios)
+
 [Youtube](https://www.youtube.com/watch?v=0mDN6cUOWiw)
+
+## using expo-go
+
+`npx create-expo-app POS`
+
+runserver:
+
+`npx expo start`
+
+## using CLI
 
 environment setup
 ```
