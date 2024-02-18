@@ -1,5 +1,13 @@
 # mac
 
+[Expo go Document](https://docs.expo.dev/tutorial/create-your-first-app/)
+
+1. `npx create-expo-app POS`
+2. `npx expo install react-dom react-native-web @expo/webpack-config`
+
+
+------------------
+
 [Document](https://reactnative.dev/docs/environment-setup?os=windows&guide=quickstart&platform=ios)
 
 [Youtube](https://www.youtube.com/watch?v=0mDN6cUOWiw)
