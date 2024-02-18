@@ -1,0 +1,147 @@
+---
+title: Point Of Sales
+---
+classDiagram
+
+    Comment <-- User : comment
+    News <-- User : announce
+    Dashboard <-- User : view
+    class User {
+        id: Integer
+        store: Store
+        email: EmailField
+        first_name: String
+        last_name: String
+        username: String
+        password: String
+
+        set_password(raw_password)
+    }
+
+    User <|-- Admin
+    class Admin {
+        image: ImageField
+
+        delete_user(id: Integer)
+    }
+
+    User <|-- Manager
+    class Manager {
+        location: LocationField
+        image: ImageField
+        phone: String
+
+        delete_news(news_id: Integer)
+        time_to_come_back() time: DateTimeField
+    }
+
+    Bill <-- Staff : create
+    Checklist <-- Staff : check in/out
+    User <|-- Staff
+    class Staff {
+        gender: String
+        status: String
+        location: LocationField
+        image: ImageField
+        phone: String
+
+        edit_profile()
+    }
+
+    Dashboard <-- Checklist : update dashboard
+    class Checklist {
+        time: DateTimeField
+        status: String
+        expected: Staff[]
+        data: String[][]
+
+        checkin(staff: Staff)
+        checkout(staff: Staff)
+        warning(status: String) status: String
+    }
+
+    Stock "1" -- "0...*" Product
+    class Product {
+        product_id: Integer
+        product_name: String
+        details: String
+        price: Float
+        image: ImageField
+        Catagory: String
+        amount: Integer
+
+        discount(percentage: Float) Float
+    }
+
+    Dashboard <-- Stock : update dashboard
+    class Stock {
+        last_update: DateTimeField
+
+        update_stock(supply: Bill)
+        sort_stock()
+    }
+
+    Stock <-- Bill : update stock
+    class Bill {
+        bill_id: Integer
+        bill_status: String
+        bill_type: String
+        orders: Product[]
+        bill_price: Float
+
+        add_product(product: Product)
+        update_bill_price() bill_price: Float
+        generate_qrcode() ImageField
+
+    }
+
+    class Dashboard {
+        filter: String
+        duration: String
+        last_update: DateTimeField
+
+        update_dashboard()
+        staff_hours(staff: Staff) Float
+        calculate_profit() Float
+        calculate_cost() Float
+        calculate_sales() Float
+    }
+
+    class News {
+        news_id: Integer
+        time: DateTimeField
+        title: String
+        content: String
+        priority: Integer
+        owner: String
+        image: ImageField
+        like: Staff[]
+
+        delete_news()
+
+    }
+
+    News "1" -- "0...*" Comment
+    class Comment {
+        comment_id: Integer
+        owner: String
+        time: DateTimeField
+        message: String
+        image: Imagefield
+
+        delete_comment()
+    }
+
+    User ..* Store
+    class Store {
+        id: Integer
+        name: String
+        location: LocationField
+        status: Boolean
+
+        open()
+        close()
+        addMember(User)
+    }
+
+ 
