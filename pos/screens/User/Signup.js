@@ -8,7 +8,7 @@ import { alignContent, flex, flexDirection, width } from 'styled-system';
 
 
 function Signup() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.Middle}>
@@ -21,7 +21,7 @@ function Signup() {
 
       {/* Username or Email Input Field */}
       <View style={styles.buttonStyle}>
-        
+
         <View style={styles.emailInput}>
           <Input
             InputLeftElement={
@@ -52,7 +52,7 @@ function Signup() {
 
       {/* Username or Email Input Field */}
       <View style={styles.buttonStyleX}>
-        
+
         <View style={styles.emailInput}>
           <Input
             InputLeftElement={
@@ -83,7 +83,7 @@ function Signup() {
 
       {/* Password Input Field */}
       <View style={styles.buttonStyleX}>
-        
+
         <View style={styles.emailInput}>
           <Input
             InputLeftElement={
@@ -114,7 +114,7 @@ function Signup() {
 
       {/* Password Input Field */}
       <View style={styles.buttonStyleX}>
-        
+
         <View style={styles.emailInput}>
           <Input
             InputLeftElement={
@@ -146,108 +146,108 @@ function Signup() {
       {/* Button */}
       <View style={styles.buttonStyle}>
         <Button style={styles.buttonDesign}>
-            REGISTER NOW
+          REGISTER NOW
         </Button>
       </View>
 
       {/* Line */}
       <View style={styles.lineStyle}>
-        <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
         <View>
-          <Text style={{width: 50, textAlign: 'center'}}>Or</Text>
+          <Text style={{ width: 50, textAlign: 'center' }}>Or</Text>
         </View>
-        <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        <View style={{ flex: 1, height: 1, backgroundColor: 'black' }} />
       </View>
 
       {/* Box */}
       <View style={styles.boxStyle}>
-      <Box 
-        onPress={() => navigation.navigate("#")}  // for navigation
-        style={{height:80, width:80}} 
-        shadow={3}
-        _light={{
-          backgroundColor: "gray.50",
-        }}
-        _dark={{
-          backgroundColor: "gray.700",
-        }}
-      >
-        <AspectRatio ratio={1 / 1}>
-          <Image
-            roundedTop="lg"
-            source={{
-              uri: "https://www.transparentpng.com/thumb/google-logo/colorful-google-logo-transparent-clipart-download-u3DWLj.png",
-            }}
-            alt="image"
-          />
-        </AspectRatio>
-      </Box>
-      <Box 
-        onPress={() => navigation.navigate("#")}  // for navigation
-        style={styles.imageStyle}
-        shadow={3}
-        _light={{
-          backgroundColor: "gray.50",
-        }}
-        _dark={{
-          backgroundColor: "gray.700",
-        }}
-      >
-        <AspectRatio ratio={1 / 1}>
-          <Image
-            
-            roundedTop="lg"
-            source={{
-              uri: "https://www.transparentpng.com/thumb/facebook-logo-png/photo-facebook-logo-png-hd-25.png",
-            }}
-            alt="image"
-          />
-        </AspectRatio>
-      </Box>
-      <Box 
-        onPress={() => navigation.navigate("#")}  // for navigation
-        style={styles.imageStyle}
-        shadow={3}
-        _light={{
-          backgroundColor: "gray.50",
-        }}
-        _dark={{
-          backgroundColor: "gray.700",
-        }}
-      >
-        <AspectRatio ratio={1 / 1}>
-          <Image
-            
-            roundedTop="lg"
-            source={{
-              uri: "https://www.transparentpng.com/thumb/twitter/bird-twitter-socialmedia-icons-png-5.png",
-            }}
-            alt="image"
-          />
-        </AspectRatio>
-      </Box>
-      <Box 
-        onPress={() => navigation.navigate("#")}  // for navigation
-        style={styles.imageStyle}
-        shadow={3}
-        _light={{
-          backgroundColor: "gray.50",
-        }}
-        _dark={{
-          backgroundColor: "gray.700",
-        }}
-      >
-        <AspectRatio ratio={1 / 1}>
-          <Image
-            
-            roundedTop="lg"
-            source={{
-              uri: "https://www.transparentpng.com/thumb/apple-logo/RRgURB-apple-logo-clipart-hd.png",
-            }}
-            alt="image"
-          />
-        </AspectRatio>
-      </Box>
+        <Box
+          onPress={() => navigation.navigate("#")}  // for navigation
+          style={{ height: 80, width: 80 }}
+          shadow={3}
+          _light={{
+            backgroundColor: "gray.50",
+          }}
+          _dark={{
+            backgroundColor: "gray.700",
+          }}
+        >
+          <AspectRatio ratio={1 / 1}>
+            <Image
+              roundedTop="lg"
+              source={{
+                uri: "https://www.transparentpng.com/thumb/google-logo/colorful-google-logo-transparent-clipart-download-u3DWLj.png",
+              }}
+              alt="image"
+            />
+          </AspectRatio>
+        </Box>
+        <Box
+          onPress={() => navigation.navigate("#")}  // for navigation
+          style={styles.imageStyle}
+          shadow={3}
+          _light={{
+            backgroundColor: "gray.50",
+          }}
+          _dark={{
+            backgroundColor: "gray.700",
+          }}
+        >
+          <AspectRatio ratio={1 / 1}>
+            <Image
+
+              roundedTop="lg"
+              source={{
+                uri: "https://www.transparentpng.com/thumb/facebook-logo-png/photo-facebook-logo-png-hd-25.png",
+              }}
+              alt="image"
+            />
+          </AspectRatio>
+        </Box>
+        <Box
+          onPress={() => navigation.navigate("#")}  // for navigation
+          style={styles.imageStyle}
+          shadow={3}
+          _light={{
+            backgroundColor: "gray.50",
+          }}
+          _dark={{
+            backgroundColor: "gray.700",
+          }}
+        >
+          <AspectRatio ratio={1 / 1}>
+            <Image
+
+              roundedTop="lg"
+              source={{
+                uri: "https://www.transparentpng.com/thumb/twitter/bird-twitter-socialmedia-icons-png-5.png",
+              }}
+              alt="image"
+            />
+          </AspectRatio>
+        </Box>
+        <Box
+          onPress={() => navigation.navigate("#")}  // for navigation
+          style={styles.imageStyle}
+          shadow={3}
+          _light={{
+            backgroundColor: "gray.50",
+          }}
+          _dark={{
+            backgroundColor: "gray.700",
+          }}
+        >
+          <AspectRatio ratio={1 / 1}>
+            <Image
+
+              roundedTop="lg"
+              source={{
+                uri: "https://www.transparentpng.com/thumb/apple-logo/RRgURB-apple-logo-clipart-hd.png",
+              }}
+              alt="image"
+            />
+          </AspectRatio>
+        </Box>
       </View>
       <StatusBar style="auto" />
     </View>
@@ -257,9 +257,7 @@ function Signup() {
 export default () => {
   return (
     <NativeBaseProvider>
-     
-        <Signup />
-      
+      <Signup />
     </NativeBaseProvider>
   )
 }
@@ -271,60 +269,60 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   LoginText: {
-    marginTop:100,
-    fontSize:30,
-    fontWeight:'bold',
+    marginTop: 100,
+    fontSize: 30,
+    fontWeight: 'bold',
   },
-  Middle:{
-    alignItems:'center',
-    justifyContent:'center',
+  Middle: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  text2:{
-    flexDirection:'row',
-    justifyContent:'center',
-    paddingTop:5
+  text2: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingTop: 5
   },
-  signupText:{
-    fontWeight:'bold'
+  signupText: {
+    fontWeight: 'bold'
   },
-  emailField:{
-    marginTop:30,
-    marginLeft:15
+  emailField: {
+    marginTop: 30,
+    marginLeft: 15
   },
-  emailInput:{
-    marginTop:10,
-    marginRight:5
+  emailInput: {
+    marginTop: 10,
+    marginRight: 5
   },
-  buttonStyle:{
-    marginTop:30,
-    marginLeft:15,
-    marginRight:15
+  buttonStyle: {
+    marginTop: 30,
+    marginLeft: 15,
+    marginRight: 15
   },
-  buttonStyleX:{
-    marginTop:12,
-    marginLeft:15,
-    marginRight:15
+  buttonStyleX: {
+    marginTop: 12,
+    marginLeft: 15,
+    marginRight: 15
   },
-  buttonDesign:{
-    backgroundColor:'#026efd'
+  buttonDesign: {
+    backgroundColor: '#026efd'
   },
-  lineStyle:{
-    flexDirection:'row',
-    marginTop:30,
-    marginLeft:15,
-    marginRight:15,
-    alignItems:'center'
+  lineStyle: {
+    flexDirection: 'row',
+    marginTop: 30,
+    marginLeft: 15,
+    marginRight: 15,
+    alignItems: 'center'
   },
-  imageStyle:{
-    width:80,
-    height:80,
-    marginLeft:20,
+  imageStyle: {
+    width: 80,
+    height: 80,
+    marginLeft: 20,
   },
-  boxStyle:{
-    flexDirection:'row',
-    marginTop:30,
-    marginLeft:15,
-    marginRight:15,
-    justifyContent:'space-around'
+  boxStyle: {
+    flexDirection: 'row',
+    marginTop: 30,
+    marginLeft: 15,
+    marginRight: 15,
+    justifyContent: 'space-around'
   },
 });
