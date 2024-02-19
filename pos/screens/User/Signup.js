@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { alignContent, flex, flexDirection, width } from 'styled-system';
 
 
+
 function Signup() {
   const navigation = useNavigation();
   return (

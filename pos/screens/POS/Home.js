@@ -8,6 +8,7 @@ function Home() {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>Point of Sale</Text>
             <Text>Open up App.js to start working on your app!</Text>
             <StatusBar style="auto" />
             <TouchableOpacity onPress={() => navigation.navigate('Login')} ><Text style={styles.botton}>Back to Login</Text></TouchableOpacity>
@@ -29,6 +30,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    title: {
+        fontSize: 50,
     },
     botton: {
         fontWeight: 'bold',
