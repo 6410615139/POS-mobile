@@ -6,7 +6,22 @@
 //
 
 import Foundation
+import FirebaseAuth
+import FirebaseFirestore
 
-class ToDoListViewModel: ObservableObject {
-    @Published var showingnewItemView = false
+class HomeViewModel: ObservableObject {
+    @Published var showingnewPostView = false
+    @Published var posts: [Post] = []
+    
+    func fetchPosts() async {
+        let db = Firestore.firestore()
+        do {
+            let snapshot = try await db.collection("post").getDocuments()
+            self.posts = snapshot.documents.compactMap { document in
+                try? document.data(as: Post.self)
+            }
+        } catch {
+            print("Error fetching posts: \(error)")
+        }
+    }
 }

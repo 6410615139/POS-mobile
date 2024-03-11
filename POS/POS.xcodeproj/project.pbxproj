@@ -36,6 +36,10 @@
 		CE8E6B372B9F4EC500F19E3D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B362B9F4EC500F19E3D /* Extensions.swift */; };
 		CE8E6B392B9F4EF900F19E3D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B382B9F4EF900F19E3D /* ProfileView.swift */; };
 		CE8E6B3B2B9F4F2E00F19E3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE8E6B3A2B9F4F2E00F19E3D /* GoogleService-Info.plist */; };
+		CE8E6B3D2B9F55C600F19E3D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B3C2B9F55C600F19E3D /* LoginViewModel.swift */; };
+		CE8E6B3F2B9F5DE900F19E3D /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */; };
+		CE8E6B412B9F5E1B00F19E3D /* NewPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */; };
+		CE8E6B432B9F5E9200F19E3D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B422B9F5E9200F19E3D /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		CE8E6B362B9F4EC500F19E3D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE8E6B382B9F4EF900F19E3D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CE8E6B3A2B9F4F2E00F19E3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE8E6B3C2B9F55C600F19E3D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
+		CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewModel.swift; sourceTree = "<group>"; };
+		CE8E6B422B9F5E9200F19E3D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8E6B342B9F4E9F00F19E3D /* User.swift */,
+				CE8E6B422B9F5E9200F19E3D /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +145,7 @@
 				CE8E6B2C2B9F4E1600F19E3D /* POSButton.swift */,
 				CE8E6B302B9F4E5F00F19E3D /* RegisterView.swift */,
 				CE8E6B382B9F4EF900F19E3D /* ProfileView.swift */,
+				CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +156,8 @@
 				CE8E6B222B9F4CF700F19E3D /* MainViewModel.swift */,
 				CE8E6B2A2B9F4DCD00F19E3D /* HomeViewModel.swift */,
 				CE8E6B322B9F4E8000F19E3D /* RegisterViewModel.swift */,
+				CE8E6B3C2B9F55C600F19E3D /* LoginViewModel.swift */,
+				CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -254,13 +266,17 @@
 				CE8E6B392B9F4EF900F19E3D /* ProfileView.swift in Sources */,
 				CE8E6B332B9F4E8000F19E3D /* RegisterViewModel.swift in Sources */,
 				CE8E6B2D2B9F4E1600F19E3D /* POSButton.swift in Sources */,
+				CE8E6B432B9F5E9200F19E3D /* Post.swift in Sources */,
 				CE8E6B272B9F4D3F00F19E3D /* HeaderView.swift in Sources */,
 				CE8E6B072B9F4A6300F19E3D /* MainView.swift in Sources */,
+				CE8E6B3D2B9F55C600F19E3D /* LoginViewModel.swift in Sources */,
 				CE8E6B2B2B9F4DCD00F19E3D /* HomeViewModel.swift in Sources */,
 				CE8E6AF32B9F46F400F19E3D /* POSApp.swift in Sources */,
+				CE8E6B3F2B9F5DE900F19E3D /* NewPostView.swift in Sources */,
 				CE8E6B372B9F4EC500F19E3D /* Extensions.swift in Sources */,
 				CE8E6B292B9F4DA600F19E3D /* HomeView.swift in Sources */,
 				CE8E6B252B9F4D2100F19E3D /* LoginView.swift in Sources */,
+				CE8E6B412B9F5E1B00F19E3D /* NewPostViewModel.swift in Sources */,
 				CE8E6B232B9F4CF700F19E3D /* MainViewModel.swift in Sources */,
 				CE8E6B352B9F4E9F00F19E3D /* User.swift in Sources */,
 			);
@@ -396,6 +412,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"POS/Preview Content\"";
+				DEVELOPMENT_TEAM = XX86AGP7AN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -424,6 +441,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"POS/Preview Content\"";
+				DEVELOPMENT_TEAM = XX86AGP7AN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
