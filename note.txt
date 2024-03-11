@@ -1,9 +1,0 @@
-In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.
-
-1. Navigate to node_modules/native-base/src/core/NativeBaseProvider.tsx.
-2. Delete the <SSRProvider></SSRProvider> that wraps {children}. Take care not to delete {children}.
-3. Remove the SSRProvider import. That is, delete this line: import { SSRProvider } from '@react-native-aria/utils';.
-4. Run npx patch-package native-base. Select 'yes' in the prompt.
-
-When Native Base officially fixes it, you can delete the patch from the patch directory that was created and reinstall native-base
-
