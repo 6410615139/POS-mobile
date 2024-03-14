@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C3C2E2722BA2F0D900B3ED84 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */; };
 		CE8E6AF32B9F46F400F19E3D /* POSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6AF22B9F46F400F19E3D /* POSApp.swift */; };
 		CE8E6AF72B9F46F500F19E3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE8E6AF62B9F46F500F19E3D /* Assets.xcassets */; };
 		CE8E6AFA2B9F46F500F19E3D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE8E6AF92B9F46F500F19E3D /* Preview Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		CE8E6AEF2B9F46F400F19E3D /* POS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8E6AF22B9F46F400F19E3D /* POSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSApp.swift; sourceTree = "<group>"; };
 		CE8E6AF62B9F46F500F19E3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				CE8E6B322B9F4E8000F19E3D /* RegisterViewModel.swift */,
 				CE8E6B3C2B9F55C600F19E3D /* LoginViewModel.swift */,
 				CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */,
+				C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				CE8E6AF32B9F46F400F19E3D /* POSApp.swift in Sources */,
 				CE8E6B3F2B9F5DE900F19E3D /* NewPostView.swift in Sources */,
 				CE8E6B372B9F4EC500F19E3D /* Extensions.swift in Sources */,
+				C3C2E2722BA2F0D900B3ED84 /* ProfileViewModel.swift in Sources */,
 				CE8E6B292B9F4DA600F19E3D /* HomeView.swift in Sources */,
 				CE8E6B252B9F4D2100F19E3D /* LoginView.swift in Sources */,
 				CE8E6B412B9F5E1B00F19E3D /* NewPostViewModel.swift in Sources */,

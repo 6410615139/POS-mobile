@@ -23,5 +23,10 @@ class HomeViewModel: ObservableObject {
         } catch {
             print("Error fetching posts: \(error)")
         }
+        self.sortPost()
+    }
+    
+    func sortPost() {
+        posts.sort { $0.createDate > $1.createDate }
     }
 }

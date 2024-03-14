@@ -40,6 +40,13 @@ struct HomeView: View {
                     await viewModel.fetchPosts()
                 }
             }
+            .onChange(of: viewModel.showingnewPostView) { newValue in
+                if !newValue { // When the sheet is dismissed
+                    Task {
+                        await viewModel.fetchPosts()
+                    }
+                }
+            }
         }
     }
 }
