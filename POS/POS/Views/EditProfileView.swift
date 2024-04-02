@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @StateObject var viewModel = EditProfileViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if  let user = viewModel.user {
+            
+        }
     }
 }
 

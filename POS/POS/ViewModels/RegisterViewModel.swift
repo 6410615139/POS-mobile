@@ -13,6 +13,8 @@ class RegisterViewModel: ObservableObject {
     @Published var name = ""
     @Published var email = ""
     @Published var password = ""
+    @Published var tel = ""
+    @Published var gender = ""
     
     func register() {
         guard validate() else {
@@ -28,7 +30,7 @@ class RegisterViewModel: ObservableObject {
     }
     
     private func insertUserRecord(id: String) {
-        let newUser = User(id: id, name: name, email: email, joined: Date().timeIntervalSince1970)
+        let newUser = User(id: id, name: name, email: gender, tel: tel, gender: email, joined: Date().timeIntervalSince1970)
         let db = Firestore.firestore()
         db.collection("users")
             .document(id)
