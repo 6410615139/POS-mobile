@@ -15,49 +15,31 @@ struct ProfileView: View {
     ]
     
     var body: some View {
-        ZStack{
+        VStack{
             if let user = viewModel.user {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(UIColor(hex: "#b31464")))
-                    .frame(width: .infinity, height: 550)
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(UIColor(hex: "#fecede")))
-                    .frame(width: .infinity, height: 500)
-                    .padding(.top, 60)
                 VStack{
                     HStack{
-                        Spacer()
                         Image(systemName: "person.circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 170)
-                            .foregroundColor(.white)
                     }
-                    Spacer()
-                        .frame(height: 500)
                 }
                 VStack(alignment: .leading){
                     HStack{
                         Text("STAFF")
-                        Button {
+                        Button{
                             
                         } label: {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 20)
-                                .foregroundColor(.white)
                         }
                     }
-                    Text("< position >")
-                    Spacer()
-                        .frame(height: 100)
-                    Text("Name:")
-                    Text(user.name)
-                        .padding(10)
-                        .frame(width: 300)
-                        .border(.white, width: 3)
                     LazyVGrid(columns: layout, content: {
+                        Text("Name:")
+                        Text(user.name)
                         Text("Gmail: ")
                         ScrollView(.horizontal){
                             Text(user.email)
@@ -65,14 +47,19 @@ struct ProfileView: View {
                         Text("Tel: ")
                         Text("mytel")
                     })
-                    Button {
-                        
-                    } label: {
-                        Text("History")
-                    }
                 }
                 .padding(30)
-                .font(.system(size: 20))
+                Button {
+
+                } label: {
+                    Text("History")
+                }
+                
+                Button {
+                    
+                } label: {
+                    Text("Log Out")
+                }
             } else {
                 Text("Loading Profile")
             }

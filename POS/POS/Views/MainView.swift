@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
+    
     var body: some View {
         if  viewModel.isSignedIn,
             !viewModel.currentUserId.isEmpty {
@@ -23,6 +24,20 @@ struct MainView: View {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house")
+                }
+            
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "clipboard.fill")
+                }
+            BillView()
+                .tabItem {
+                    Label("Bill", systemImage: "newspaper.fill")
+                }
+            
+            StockView()
+                .tabItem {
+                    Label("Stock", systemImage: "shippingbox.fill")
                 }
             
             ProfileView()
