@@ -203,13 +203,9 @@
 				CE8E6B3C2B9F55C600F19E3D /* LoginViewModel.swift */,
 				CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */,
 				C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */,
-<<<<<<< HEAD
-				C35ED6D12BBC6EEE00E18856 /* EditProfileViewModel.swift */,
 				CE7F6FDB2BBFE68900F7B564 /* BillDetailsViewModel.swift */,
 				CE7F6FE92BBFF1E300F7B564 /* BillItemViewModel.swift */,
 				CE7F6FED2BBFF48C00F7B564 /* BillViewModel.swift */,
-=======
->>>>>>> 4f1eafa05ff3785c40046c07ea8cdade9c16794f
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -331,12 +327,8 @@
 				CE7F6FE02BBFEDFA00F7B564 /* myButton.swift in Sources */,
 				C35ED6CE2BBC605E00E18856 /* StockView.swift in Sources */,
 				CE8E6B2B2B9F4DCD00F19E3D /* HomeViewModel.swift in Sources */,
-<<<<<<< HEAD
-				C35ED6D22BBC6EEE00E18856 /* EditProfileViewModel.swift in Sources */,
 				CE7F6FEA2BBFF1E300F7B564 /* BillItemViewModel.swift in Sources */,
 				CE7F6FEC2BBFF43200F7B564 /* BillView.swift in Sources */,
-=======
->>>>>>> 4f1eafa05ff3785c40046c07ea8cdade9c16794f
 				CE8E6AF32B9F46F400F19E3D /* POSApp.swift in Sources */,
 				CE7F6FDA2BBFE65600F7B564 /* BillDetailsView.swift in Sources */,
 				CE8E6B3F2B9F5DE900F19E3D /* NewPostView.swift in Sources */,
