@@ -66,13 +66,10 @@ struct ProfileView: View {
                 Text("Loading Profile")
             }
     }
-    .fullScreenCover(isPresented: $showingNewPage) {
-                EditProfileView()
+        .fullScreenCover(isPresented: $showingNewPage, onDismiss: viewModel.fetch) {
+        EditProfileView()
     }
     .padding(20)
-    .onAppear {
-        viewModel.fetchUser()
-    }
     }
 }
 
