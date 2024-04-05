@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
-    @State private var showingNewPage = false
+    @State private var showingEditPage = false
+    @State private var showingHistoryPage = false
     
     let layout = [
         GridItem(.fixed(60)),
@@ -31,7 +32,7 @@ struct ProfileView: View {
                     HStack{
                         Text("STAFF")
                         Button{
-                            showingNewPage = true
+                            showingEditPage = true
                         } label: {
                             Image(systemName: "gearshape.fill")
                                 .resizable()
@@ -52,7 +53,7 @@ struct ProfileView: View {
                 }
                 .padding(30)
                 Button {
-
+                    showingHistoryPage = true
                 } label: {
                     Text("History")
                 }
@@ -66,9 +67,8 @@ struct ProfileView: View {
                 Text("Loading Profile")
             }
     }
-        .fullScreenCover(isPresented: $showingNewPage, onDismiss: viewModel.fetch) {
-        EditProfileView()
-    }
+        .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetch) {EditProfileView()}
+        .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetch) {StaffHistory()}
     .padding(20)
     }
 }
