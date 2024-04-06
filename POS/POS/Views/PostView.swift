@@ -28,25 +28,10 @@ struct PostView: View {
                         .font(.body)
                     
                     
-                    // Comments Section Title
+                    // Comments Section
                     Text("Comments")
                         .font(.headline)
                         .padding(.vertical)
-                    
-//                    // Displaying each comment
-//                    ForEach(post.comments, id: \.id) { comment in
-//                        VStack(alignment: .leading) {
-//                            Text(comment.authorId)
-//                                .font(.caption)
-//                                .bold()
-//                            Text(comment.content)
-//                                .font(.body)
-//                            Text("Posted on \(viewModel.formattedDate(for: comment.timestamp))")
-//                                .font(.caption)
-//                                .foregroundColor(.gray)
-//                        }
-//                        .padding(.bottom)
-//                    }
                     
                     ForEach(post.comments, id: \.id) { comment in
                         VStack(alignment: .leading) {
@@ -55,7 +40,6 @@ struct PostView: View {
                         .padding(.bottom)
                     }
 
-                    
                     // Comment Input Field
                     TextField("Add a comment...", text: $newCommentText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())

@@ -9,25 +9,23 @@ import Combine
 import FirebaseFirestore
 
 class CommentViewModel: ObservableObject {
-    @Published var comment: Comment?
-    
-    init(postId: String) {
-        fetchComment(postId: postId)
+    @Published var authorName: String = ""
+    private var cancellables = Set<AnyCancellable>()
+
+    init(authorId: String) {
+        fetchAuthorName(authorId: authorId)
     }
-    
-    func fetchComment(postId: String) {
+
+    private func fetchAuthorName(authorId: String) {
         let db = Firestore.firestore()
-        let docRef = db.collection("post").document(postId)
-        
-        docRef.getDocument { (snapshot, error) in
-            if let document = snapshot, document.exists {
-                do {
-                    self.comment = try document.data(as: Comment.self)
-                } catch {
-                    print("Error decoding post: \(error)")
+        db.collection("users").document(authorId).getDocument { [weak self] document, error in
+            DispatchQueue.main.async {
+                if let name = document?.data()?["name"] as? String {
+                    self?.authorName = name
+                } else {
+                    print("Could not fetch author name: \(error?.localizedDescription ?? "Unknown")")
+                    self?.authorName = "Unknown"
                 }
-            } else {
-                print("Document does not exist: \(error?.localizedDescription ?? "")")
             }
         }
     }
