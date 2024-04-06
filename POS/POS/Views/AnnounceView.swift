@@ -14,7 +14,7 @@ struct AnnounceView: View {
         NavigationView {
             VStack {
                 List(viewModel.posts, id: \.id) { post in
-                    VStack(alignment: .leading) {
+                    NavigationLink(destination: PostView(viewModel: PostViewModel(postId: post.id))) {
                         AnnounceItemView(item: post)
                     }
                 }
@@ -42,7 +42,7 @@ struct AnnounceView: View {
                     }
                 }
             }
-
+            
         }
     }
 }
