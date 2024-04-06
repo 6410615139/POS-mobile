@@ -12,5 +12,5 @@ struct Post: Codable {
     let title: String
     let createDate: TimeInterval
     let content: String
-//    let owner: String
+    let creator: String
 }

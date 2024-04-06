@@ -15,12 +15,7 @@ struct AnnounceView: View {
             VStack {
                 List(viewModel.posts, id: \.id) { post in
                     VStack(alignment: .leading) {
-                        Text(post.title)
-                            .font(.headline)
-                        Text(post.content)
-                            .font(.subheadline)
-                        Text("Created at: \(Date(timeIntervalSince1970: post.createDate), formatter: itemFormatter)")
-                            .font(.caption)
+                        AnnounceItemView(item: post)
                     }
                 }
             }

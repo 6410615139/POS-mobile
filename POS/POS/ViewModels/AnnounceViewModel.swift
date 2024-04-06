@@ -12,7 +12,7 @@ import FirebaseFirestore
 class AnnounceViewModel: ObservableObject {
     @Published var showingnewPostView = false
     @Published var posts: [Post] = []
-
+    
     func fetchPosts() async {
         let db = Firestore.firestore()
         do {
@@ -32,5 +32,18 @@ class AnnounceViewModel: ObservableObject {
     
     func sortPost() {
         posts.sort { $0.createDate > $1.createDate }
+    }
+    
+    func fetchUserName(uid: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").document(uid).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let name = document.data()?["name"] as? String
+                completion(name)
+            } else {
+                print("User not found or error: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+            }
+        }
     }
 }
