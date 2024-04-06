@@ -12,18 +12,22 @@ import FirebaseFirestore
 class AnnounceViewModel: ObservableObject {
     @Published var showingnewPostView = false
     @Published var posts: [Post] = []
-    
+
     func fetchPosts() async {
         let db = Firestore.firestore()
         do {
             let snapshot = try await db.collection("post").getDocuments()
-            self.posts = snapshot.documents.compactMap { document in
+            let fetchedPosts = snapshot.documents.compactMap { document in
                 try? document.data(as: Post.self)
+            }
+            // Switch to the main thread to update the published property
+            DispatchQueue.main.async {
+                self.posts = fetchedPosts
+                self.sortPost()
             }
         } catch {
             print("Error fetching posts: \(error)")
         }
-        self.sortPost()
     }
     
     func sortPost() {
