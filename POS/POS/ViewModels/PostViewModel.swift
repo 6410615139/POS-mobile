@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class PostViewModel: ObservableObject {
     @Published var post: Post?
@@ -52,15 +53,20 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func comment(authorId: String, content: String) {
+    func comment(content: String) {
         guard let postId = self.post?.id else {
             print("Post ID is unavailable.")
             return
         }
         
+        guard let uId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+        
         let db = Firestore.firestore()
         let postRef = db.collection("post").document(postId)
-        let newComment = Comment(id: UUID().uuidString, authorId: authorId, content: content, timestamp: Date().timeIntervalSince1970)
+        let newComment = Comment(id: UUID().uuidString, authorId: uId, content: content, timestamp: Date().timeIntervalSince1970)
         
         postRef.updateData([
             "comments": FieldValue.arrayUnion([newComment.dictionary])

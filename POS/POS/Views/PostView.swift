@@ -10,6 +10,7 @@ import SwiftUI
 struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
     @State private var newCommentText: String = ""
+//    @State private var userName: String = ""
     
     var body: some View {
         ScrollView {
@@ -32,20 +33,28 @@ struct PostView: View {
                         .font(.headline)
                         .padding(.vertical)
                     
-                    // Displaying each comment
+//                    // Displaying each comment
+//                    ForEach(post.comments, id: \.id) { comment in
+//                        VStack(alignment: .leading) {
+//                            Text(comment.authorId)
+//                                .font(.caption)
+//                                .bold()
+//                            Text(comment.content)
+//                                .font(.body)
+//                            Text("Posted on \(viewModel.formattedDate(for: comment.timestamp))")
+//                                .font(.caption)
+//                                .foregroundColor(.gray)
+//                        }
+//                        .padding(.bottom)
+//                    }
+                    
                     ForEach(post.comments, id: \.id) { comment in
                         VStack(alignment: .leading) {
-                            Text(comment.authorId)  // Ideally, you would fetch the author's name using this ID.
-                                .font(.caption)
-                                .bold()
-                            Text(comment.content)
-                                .font(.body)
-                            Text("Posted on \(viewModel.formattedDate(for: comment.timestamp))")
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                            CommentView(comment: comment)
                         }
                         .padding(.bottom)
                     }
+
                     
                     // Comment Input Field
                     TextField("Add a comment...", text: $newCommentText)
@@ -54,9 +63,7 @@ struct PostView: View {
                     
                     // Submit Button
                     Button("Submit") {
-                        // Assuming you have a method to get the current user's ID
-                        let authorId = "CurrentUser"  // Replace this with actual user ID retrieval logic
-                        viewModel.comment(authorId: authorId, content: newCommentText)
+                        viewModel.comment(content: newCommentText)
                         newCommentText = ""
                     }
                     .buttonStyle(.bordered)
@@ -74,5 +81,5 @@ struct PostView: View {
 
 
 #Preview {
-    PostView(viewModel: PostViewModel(postId: "12E1E8EF-E114-4CE2-9BB5-4ECC57073FFD"))
+    PostView(viewModel: PostViewModel(postId: "F1797756-E9BB-4582-8C29-658557F07FE0"))
 }
