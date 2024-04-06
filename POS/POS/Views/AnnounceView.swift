@@ -35,13 +35,14 @@ struct AnnounceView: View {
                     await viewModel.fetchPosts()
                 }
             }
-            .onChange(of: viewModel.showingnewPostView) { newValue in
-                if !newValue { // When the sheet is dismissed
+            .onChange(of: viewModel.showingnewPostView) {
+                if !viewModel.showingnewPostView {
                     Task {
                         await viewModel.fetchPosts()
                     }
                 }
             }
+
         }
     }
 }
