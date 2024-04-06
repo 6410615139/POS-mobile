@@ -10,7 +10,7 @@ import SwiftUI
 struct NewPostView: View {
     
     @StateObject var viewModel = NewPostViewModel()
-    @StateObject var HomeviewModel = HomeViewModel()
+    @StateObject var HomeviewModel = AnnounceViewModel()
     @Binding var newPostPresented: Bool
     
     var body: some View {

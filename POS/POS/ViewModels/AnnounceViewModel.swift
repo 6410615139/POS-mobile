@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  AnnounceViewModel.swift
 //  POS
 //
 //  Created by Supakrit Nithikethkul on 11/3/2567 BE.
@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class HomeViewModel: ObservableObject {
+class AnnounceViewModel: ObservableObject {
     @Published var showingnewPostView = false
     @Published var posts: [Post] = []
     

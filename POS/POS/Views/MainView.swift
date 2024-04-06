@@ -21,7 +21,7 @@ struct MainView: View {
     
     var accountView: some View {
         TabView {
-            HomeView()
+            AnnounceView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }

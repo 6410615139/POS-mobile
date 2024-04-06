@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  AnnounceView.swift
 //  POS
 //
 //  Created by Supakrit Nithikethkul on 11/3/2567 BE.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+struct AnnounceView: View {
+    @StateObject var viewModel = AnnounceViewModel()
     
     var body: some View {
         NavigationView {
@@ -60,5 +60,5 @@ private let itemFormatter: DateFormatter = {
 }()
 
 #Preview {
-    HomeView()
+    AnnounceView()
 }
