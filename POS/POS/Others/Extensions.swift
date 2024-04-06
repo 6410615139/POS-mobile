@@ -40,3 +40,27 @@ extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
+
+extension Comment {
+    var dictionary: [String: Any] {
+        return [
+            "id": id,
+            "authorId": authorId,
+            "content": content,
+            "timestamp": timestamp
+        ]
+    }
+}
+
+extension Post {
+    func asDictionary() -> [String: Any] {
+        return [
+            "id": id,
+            "title": title,
+            "createDate": createDate,
+            "content": content,
+            "creator": creator,
+            "comments": comments.map { $0.asDictionary() }  // Assuming comments are also Codable
+        ]
+    }
+}

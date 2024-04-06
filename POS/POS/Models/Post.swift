@@ -13,4 +13,12 @@ struct Post: Codable {
     let createDate: TimeInterval
     let content: String
     let creator: String
+    var comments: [Comment]
+}
+
+struct Comment: Codable {
+    let id: String
+    let authorId: String
+    let content: String
+    let timestamp: TimeInterval
 }
