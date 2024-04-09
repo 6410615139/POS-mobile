@@ -23,11 +23,13 @@ struct BillItemView: View {
 
             // Tappable area for navigation
             VStack(alignment: .leading) {
-                Text("Test word")
-                    .font(.title)
+                Text("Table: \(item.table)")
+                    .font(.title3)
                     .bold()
-                
-                Text("\(Date(timeIntervalSince1970: item.createDate).formatted(date: .abbreviated, time: .shortened))")
+                Text("Owner: \(item.owner)")
+                    .font(.caption)
+                    .bold()
+                Text("Create at: \(Date(timeIntervalSince1970: item.createDate).formatted(date: .abbreviated, time: .shortened))")
                     .font(.footnote)
                     .foregroundColor(Color(.secondaryLabel))
             }
@@ -36,7 +38,6 @@ struct BillItemView: View {
                 isNavigationActive = true
             }
             .background(NavigationLink("", destination: BillDetailsView(itemId: item.id)).hidden())
-
             Spacer()
         }
     }

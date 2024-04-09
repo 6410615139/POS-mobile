@@ -12,6 +12,16 @@ struct BillView: View {
     
     @StateObject var viewModel: BillViewModel
     @FirestoreQuery var items: [Bill]
+    @State private var showDeleteConfirmation = false
+    @State private var itemToDelete: Bill? = nil
+    
+    private var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 20),
+        GridItem(.flexible(), spacing: 20)
+    ]
+    
+    // Specify the size for each item
+    private let itemSize: CGSize = CGSize(width: 150, height: 150)
     
     init() {
         self._items = FirestoreQuery(collectionPath: "bills")
@@ -20,31 +30,63 @@ struct BillView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List(items) { item in
-                    BillItemView(item: item)
-                        .swipeActions {
-                            Button {
-                                viewModel.delete(id: item.id)
-                            } label: {
-                                Image(systemName: "trash.fill")
-                            }
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    // Button for adding a new bill
+                    Button(action: viewModel.create_bill) {
+                        VStack {
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(20)
                         }
-                        .tint(.red)
+                        .frame(width: itemSize.width, height: itemSize.height)
+                        .background(Color(UIColor.systemGray6))
+                        .cornerRadius(10)
+                    }
+                    
+                    ForEach(items) { item in
+                        BillItemView(item: item)
+                            .frame(width: itemSize.width, height: itemSize.height)
+                            .background(Color(UIColor.systemBackground)) // Use appropriate background color
+                            .cornerRadius(10)
+                            .shadow(radius: 2)
+                            .overlay(
+                                VStack {
+                                    if itemToDelete?.id == item.id {
+                                        Button("Delete") {
+                                            showDeleteConfirmation = true
+                                        }
+                                        .padding()
+                                        .background(Color.red)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    }
+                                }
+                            )
+                            .onLongPressGesture {
+                                itemToDelete = item
+                            }
+                    }
                 }
-                .listStyle(PlainListStyle())
+                .padding()
             }
-            .navigationTitle("Bill")
-            .toolbar {
-                Button {
-                    viewModel.create_bill()
-                } label: {
-                    Image(systemName: "plus")
-                }
+            .navigationTitle("Bills")
+            .alert(isPresented: $showDeleteConfirmation) {
+                Alert(
+                    title: Text("Confirm Deletion"),
+                    message: Text("Are you sure you want to delete this bill?"),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let item = itemToDelete {
+                            viewModel.delete(id: item.id)
+                            itemToDelete = nil
+                        }
+                    },
+                    secondaryButton: .cancel {
+                        itemToDelete = nil
+                    }
+                )
             }
-//            .sheet(isPresented: $viewModel.showingnewItemView) {
-//                NewBillView(newItemPresented: $viewModel.showingnewItemView)
-//            }
         }
     }
 }

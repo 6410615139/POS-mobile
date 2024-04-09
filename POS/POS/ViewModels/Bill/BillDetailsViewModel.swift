@@ -13,6 +13,7 @@ class BillDetailsViewModel: ObservableObject {
     var itemId: String
     @Published var item: Bill? = nil
     @Published var showingEditView = false
+    @Published var orders: [Order]? = []
     
     init(itemId: String) {
         self.itemId = itemId
@@ -42,5 +43,6 @@ class BillDetailsViewModel: ObservableObject {
                 }
                 
             }
+        self.orders = self.item?.orders
     }
 }

@@ -11,59 +11,45 @@ import FirebaseFirestoreSwift
 struct BillDetailsView: View {
     @StateObject var viewModel: BillDetailsViewModel
     
+    private var columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     init(itemId: String) {
         _viewModel = StateObject(wrappedValue: BillDetailsViewModel(itemId: itemId))
     }
     
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVGrid(columns: columns, spacing: 20) {
                 if let item = viewModel.item {
+                    // First column content
                     VStack(alignment: .leading, spacing: 10) {
-//                        Text(item.title)
-//                            .font(.largeTitle)
-//                            .fontWeight(.bold)
-//                            .padding(.bottom, 10)
-//                        
-//                        Text(item.content)
-//                            .font(.body)
-//                            .multilineTextAlignment(.leading)
-//                            .padding(.bottom, 10)
-                        
-                        Text("\(Date(timeIntervalSince1970: item.createDate).formatted(date: .abbreviated, time: .shortened))")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                            .padding(.bottom, 10)
+                        // Add content specific to the first column here
+                        // For example, show part of the item details
+                        Text("Product: \(item.orders)")
+                            .font(.body)
+                            .foregroundColor(.primary)
                     }
                     .padding()
                     .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
-                    .padding()
 
-                    Text("ID: \(item.id)")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.top, 5)
-                        .padding(.bottom, 20)
                 } else {
-                    Text("Loading note details...")
+                    Text("Loading details...")
                         .font(.body)
                         .foregroundColor(.gray)
+                    Spacer()
                 }
             }
+            .padding()
         }
-        .navigationTitle("Note Details")
+        .navigationTitle("Table: \(String(describing: viewModel.item?.table))")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            Button {
-                viewModel.showingEditView = true
-            } label: {
-                Image(systemName: "pencil")
-            }
+            // Toolbar items here
         }
-//        .sheet(isPresented: $viewModel.showingEditView) {
-//            EditBillView(note: viewModel.item!, editItemPresented: $viewModel.showingEditView)
-//        }
         .onChange(of: viewModel.showingEditView) {
             viewModel.fetch_item()
         }
