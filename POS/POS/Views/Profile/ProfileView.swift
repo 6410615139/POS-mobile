@@ -21,7 +21,7 @@ struct ProfileView: View {
         ZStack{
             VStack{
                 Rectangle()
-                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .frame(maxWidth: .infinity, maxHeight: 180)
                     .foregroundColor(Color(UIColor(hex: "#387440")))
                     .edgesIgnoringSafeArea(.all)
                 Spacer()
@@ -29,7 +29,7 @@ struct ProfileView: View {
             VStack{
                 if let user = viewModel.user {
                     Spacer()
-                        .frame(maxHeight: 150)
+                        .frame(maxHeight: 130)
                     ZStack{
                         RoundedRectangle(cornerRadius: 25)
                             .foregroundColor(Color(UIColor(hex: "#ddedb6")))
@@ -38,27 +38,43 @@ struct ProfileView: View {
                                 Text("STAFF")
                                     .font(.system(size: 30))
                                     .foregroundColor(Color(UIColor(hex: "#10621b")))
-                                Text("Name:")
-                                Text(user.name)
+                                Text("Name-Surname:")
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .foregroundColor(Color.white)
+                                        .frame(height: 30)
+                                    Text(user.name)
+                                        .frame(width: 230, height: 30, alignment: .leading)
+                                }
                                 Text("Gmail: ")
-                                ScrollView(.horizontal){
-                                    Text(user.email)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .foregroundColor(Color.white)
+                                        .frame(height: 30)
+                                    ScrollView(.horizontal){
+                                        Text(user.email)
+                                    }.padding(.horizontal)
                                 }
                                 Text("Tel: ")
-                                Text(user.tel)
+                                ZStack{
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .foregroundColor(Color.white)
+                                        .frame(height: 30)
+                                    Text(user.tel)
+                                        .frame(width: 230, height: 30, alignment: .leading)
+                                }
                             }
                             .padding(30)
-                            Button {
-                                showingHistoryPage = true
-                            } label: {
-                                Text("History")
-                            }
                             
-                            Button {
-                                viewModel.logOut()
-                            } label: {
-                                Text("Log Out")
+                            POSButton(title: "History", background: Color(UIColor(hex: "#9ed461"))){
+                                showingHistoryPage = true
                             }
+                            .frame(width: 220, height: 50)
+                            
+                            POSButton(title: "Log Out", background: Color(UIColor(hex: "#387440"))){
+                                viewModel.logOut()
+                            }
+                            .frame(width: 220, height: 50)
                         }
                     }
                 } else {
@@ -68,17 +84,21 @@ struct ProfileView: View {
             .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetch) {EditProfileView()}
             .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetch) {StaffHistory()}
             .padding(30)
+            
+            // Picture
             VStack{
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 30)
                 Image(systemName: "person.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 180)
+                    .frame(width: 200)
                     .foregroundColor(Color(UIColor(hex: "#9ed461")))
                 Spacer()
             }
+            
+            // Edit Button
             VStack{
-                Spacer().frame(height: 220)
+                Spacer().frame(height: 190)
                 HStack{
                     Spacer()
                     Button{
@@ -87,12 +107,12 @@ struct ProfileView: View {
                         Image(systemName: "gearshape.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 30)
+                            .frame(width: 25)
                             .foregroundColor(Color(UIColor(hex: "#6dad53")))
                     }
                 }
                 Spacer()
-            }.padding(.trailing, 50)
+            }.padding(.trailing, 60)
 
         }
     }
