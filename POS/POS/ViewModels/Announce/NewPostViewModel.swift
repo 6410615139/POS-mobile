@@ -21,7 +21,7 @@ class NewPostViewModel: ObservableObject {
         }
 
         let newId = UUID().uuidString
-        let newPost = Post(id: newId, title: title, createDate: Date().timeIntervalSince1970, content: content, creator: uId, comments: [])
+        let newPost = Post(id: newId, title: title, createDate: Date().timeIntervalSince1970, content: content, creator: uId, comments: [], likes: [])
         let db = Firestore.firestore()
         
         db.collection("post")

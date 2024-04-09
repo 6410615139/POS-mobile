@@ -14,6 +14,7 @@ struct Post: Codable {
     let content: String
     let creator: String
     var comments: [Comment]
+    var likes: [User]
 }
 
 struct Comment: Codable {

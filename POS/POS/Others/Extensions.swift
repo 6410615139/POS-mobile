@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 extension Encodable {
     func asDictionary() -> [String: Any]{
@@ -60,7 +61,31 @@ extension Post {
             "createDate": createDate,
             "content": content,
             "creator": creator,
-            "comments": comments.map { $0.asDictionary() }  // Assuming comments are also Codable
+            "comments": comments.map { $0.asDictionary() },  // Assuming comments are also Codable
+            "likes": likes,
         ]
+    }
+}
+
+extension User {
+    var asDictionary: [String: Any] {
+        return [
+            "id": id,
+            "name": name,
+            "email": email,
+            "tel": tel,
+            "gender": gender,
+            "joined": joined]
+    }
+}
+
+extension PostViewModel {
+    var isLiked: Bool {
+            guard let userId = Auth.auth().currentUser?.uid else { return false }
+            return post?.likes.contains(where: { $0.id == userId }) ?? false
+        }
+    
+    var likeCount: Int {
+        return post?.likes.count ?? 0
     }
 }

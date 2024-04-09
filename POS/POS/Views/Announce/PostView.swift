@@ -10,7 +10,7 @@ import SwiftUI
 struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
     @State private var newCommentText: String = ""
-//    @State private var userName: String = ""
+    //    @State private var userName: String = ""
     
     var body: some View {
         ScrollView {
@@ -27,6 +27,16 @@ struct PostView: View {
                     Text(post.content)
                         .font(.body)
                     
+                    Button(action: {
+                        viewModel.likePost()
+                    }) {
+                        HStack {
+                            Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
+                                .foregroundColor(viewModel.isLiked ? .red : .gray)
+                            Text("Like (\(viewModel.likeCount))")
+                        }
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
                     
                     // Comments Section
                     Text("Comments")
@@ -39,7 +49,7 @@ struct PostView: View {
                         }
                         .padding(.bottom)
                     }
-
+                    
                     // Comment Input Field
                     TextField("Add a comment...", text: $newCommentText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -65,5 +75,6 @@ struct PostView: View {
 
 
 #Preview {
-    PostView(viewModel: PostViewModel(postId: "F1797756-E9BB-4582-8C29-658557F07FE0"))
+    PostView(viewModel: PostViewModel(
+        postId: "259859B2-0BA8-48B8-8042-6C9A918B28DD"))
 }

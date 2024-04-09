@@ -37,6 +37,7 @@ class PostViewModel: ObservableObject {
     }
     
     func fetchPost(postId: String) {
+        // get every post
         let db = Firestore.firestore()
         let docRef = db.collection("post").document(postId)
         
@@ -54,20 +55,26 @@ class PostViewModel: ObservableObject {
     }
     
     func comment(content: String) {
+        // get post
         guard let postId = self.post?.id else {
             print("Post ID is unavailable.")
             return
         }
         
+        // get user
         guard let uId = Auth.auth().currentUser?.uid else {
             print("User not logged in")
             return
         }
         
+        // find post in firebase
         let db = Firestore.firestore()
         let postRef = db.collection("post").document(postId)
+        
+        // create new comment object
         let newComment = Comment(id: UUID().uuidString, authorId: uId, content: content, timestamp: Date().timeIntervalSince1970)
         
+        // add comment to comment field
         postRef.updateData([
             "comments": FieldValue.arrayUnion([newComment.dictionary])
         ]) { error in
@@ -80,4 +87,44 @@ class PostViewModel: ObservableObject {
         }
     }
     
+    func likePost() {
+        // get user and post
+        guard let userId = Auth.auth().currentUser?.uid, let postId = self.post?.id else {
+            print("User not logged in or post ID unavailable.")
+            return
+        }
+
+        // find user in firebase
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).getDocument { [weak self] (document, error) in
+            guard let document = document, document.exists else {
+                print("User document does not exist: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+            // get user and post to like
+            do {
+                let user = try document.data(as: User.self)
+                let postRef = db.collection("post").document(postId)
+
+                // add user to likes field
+                postRef.updateData([
+                    "likes": FieldValue.arrayUnion([user.asDictionary])
+                ]) { error in
+                    if let error = error {
+                        print("Error updating likes: \(error.localizedDescription)")
+                    } else {
+                        print("Post successfully liked.")
+                        DispatchQueue.main.async {
+                            self?.post?.likes.append(user)
+                        }
+                    }
+                }
+            } catch let error {
+                print("Error decoding user: \(error.localizedDescription)")
+            }
+        }
+    }
+
+
 }
