@@ -7,4 +7,16 @@
 
 import Foundation
 
-class MenuItemViewModel: ObservableObject {}
+class MenuItemViewModel: ObservableObject {
+    
+    @Published var billId: String
+    
+    
+    init(billId: String) {
+        self.billId = billId
+    }
+
+    func addToCart(product: Product) {
+        
+    }
+}

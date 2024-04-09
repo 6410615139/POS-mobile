@@ -70,8 +70,7 @@ struct BillView: View {
                     }
                 }
                 .padding()
-            }
-            .navigationTitle("Bills")
+            }            .navigationTitle("Bills")
             .alert(isPresented: $showDeleteConfirmation) {
                 Alert(
                     title: Text("Confirm Deletion"),
@@ -86,6 +85,10 @@ struct BillView: View {
                         itemToDelete = nil
                     }
                 )
+            }
+            // Reset the delete button visibility when tapping outside
+            .onTapGesture {
+                itemToDelete = nil
             }
         }
     }
