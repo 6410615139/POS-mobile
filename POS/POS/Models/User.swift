@@ -14,4 +14,11 @@ struct User: Codable, Identifiable {
     let tel: String
     let gender: String
     let joined: TimeInterval
+//    let role: UserRole
+}
+
+enum UserRole: String, Codable {
+    case staff
+    case manager
+    case owner
 }
