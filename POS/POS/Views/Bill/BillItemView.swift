@@ -15,7 +15,12 @@ struct BillItemView: View {
     var body: some View {
         HStack {
             // NavigationLink disguised as part of the HStack content
-            NavigationLink(destination: BillDetailsView(itemId: item.id), isActive: $isNavigationActive) {
+//            NavigationLink(destination: BillDetailsView(itemId: item.id), isActive: $isNavigationActive) {
+//                EmptyView()
+//            }
+//            .frame(width: 0)
+//            .opacity(0)
+            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigationActive) {
                 EmptyView()
             }
             .frame(width: 0)
