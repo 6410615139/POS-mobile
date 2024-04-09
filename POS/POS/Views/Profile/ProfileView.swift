@@ -18,58 +18,83 @@ struct ProfileView: View {
     ]
     
     var body: some View {
-        VStack{
-            if let user = viewModel.user {
-                VStack{
-                    HStack{
-                        Image(systemName: "person.circle.fill")
+        ZStack{
+            VStack{
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: 200)
+                    .foregroundColor(Color(UIColor(hex: "#387440")))
+                    .edgesIgnoringSafeArea(.all)
+                Spacer()
+            }
+            VStack{
+                if let user = viewModel.user {
+                    Spacer()
+                        .frame(maxHeight: 150)
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 25)
+                            .foregroundColor(Color(UIColor(hex: "#ddedb6")))
+                        VStack{
+                            VStack(alignment: .leading){
+                                Text("STAFF")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(Color(UIColor(hex: "#10621b")))
+                                Text("Name:")
+                                Text(user.name)
+                                Text("Gmail: ")
+                                ScrollView(.horizontal){
+                                    Text(user.email)
+                                }
+                                Text("Tel: ")
+                                Text(user.tel)
+                            }
+                            .padding(30)
+                            Button {
+                                showingHistoryPage = true
+                            } label: {
+                                Text("History")
+                            }
+                            
+                            Button {
+                                viewModel.logOut()
+                            } label: {
+                                Text("Log Out")
+                            }
+                        }
+                    }
+                } else {
+                    Text("Loading Profile")
+                }
+            }
+            .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetch) {EditProfileView()}
+            .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetch) {StaffHistory()}
+            .padding(30)
+            VStack{
+                Spacer().frame(height: 50)
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 180)
+                    .foregroundColor(Color(UIColor(hex: "#9ed461")))
+                Spacer()
+            }
+            VStack{
+                Spacer().frame(height: 220)
+                HStack{
+                    Spacer()
+                    Button{
+                        showingEditPage = true
+                    } label: {
+                        Image(systemName: "gearshape.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 170)
+                            .frame(width: 30)
+                            .foregroundColor(Color(UIColor(hex: "#6dad53")))
                     }
                 }
-                VStack(alignment: .leading){
-                    HStack{
-                        Text("STAFF")
-                        Button{
-                            showingEditPage = true
-                        } label: {
-                            Image(systemName: "gearshape.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 20)
-                        }
-                    }
-                    LazyVGrid(columns: layout, content: {
-                        Text("Name:")
-                        Text(user.name)
-                        Text("Gmail: ")
-                        ScrollView(.horizontal){
-                            Text(user.email)
-                        }
-                        Text("Tel: ")
-                        Text(user.tel)
-                    })
-                }
-                .padding(30)
-                Button {
-                    showingHistoryPage = true
-                } label: {
-                    Text("History")
-                }
-                
-                Button {
-                    viewModel.logOut()
-                } label: {
-                    Text("Log Out")
-                }
-            } else {
-                Text("Loading Profile")
-            }
-    }
-        .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetch) {EditProfileView()}
-        .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetch) {StaffHistory()}
-    .padding(20)
+                Spacer()
+            }.padding(.trailing, 50)
+
+        }
     }
 }
 
