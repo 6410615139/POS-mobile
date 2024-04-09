@@ -27,8 +27,9 @@ struct PostView: View {
                     Text(post.content)
                         .font(.body)
                     
+                    // Like Button
                     Button(action: {
-                        viewModel.likePost()
+                        viewModel.toggleLike()
                     }) {
                         HStack {
                             Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
@@ -76,5 +77,5 @@ struct PostView: View {
 
 #Preview {
     PostView(viewModel: PostViewModel(
-        postId: "259859B2-0BA8-48B8-8042-6C9A918B28DD"))
+        postId: "99092B4C-3620-4138-BEF0-A232686C1DA4"))
 }
