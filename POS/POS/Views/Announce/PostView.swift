@@ -10,7 +10,7 @@ import SwiftUI
 struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
     @State private var newCommentText: String = ""
-    //    @State private var userName: String = ""
+    @State private var showingLikedUsers = false
     
     var body: some View {
         ScrollView {
@@ -34,10 +34,28 @@ struct PostView: View {
                         HStack {
                             Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                                 .foregroundColor(viewModel.isLiked ? .red : .gray)
-                            Text("Like (\(viewModel.likeCount))")
+                            Text("Like")
                         }
                     }
                     .buttonStyle(BorderlessButtonStyle())
+                    
+                    // Like count and liked user list
+                    if !viewModel.post!.likes.isEmpty {
+                        Button(action: {
+                            showingLikedUsers = true  // Set to true to show the sheet
+                        }) {
+                            HStack {
+                                Image(systemName: "heart.circle.fill").foregroundColor(.red)
+                                Text("\(viewModel.likeCount)")
+                            }
+                        }
+                        // Use .sheet here within the body of a view
+                        .sheet(isPresented: $showingLikedUsers) {
+                            // Present the LikedUsersView as the content of the sheet
+                            LikedUsersView(likes: viewModel.post!.likes)
+                        }
+                    }
+                    
                     
                     // Comments Section
                     Text("Comments")
