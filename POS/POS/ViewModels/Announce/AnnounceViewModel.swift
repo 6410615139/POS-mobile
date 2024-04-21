@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class AnnounceViewModel: ObservableObject {
     @Published var showingnewPostView = false
+    @Published var showingManageStaffView = false
     @Published var posts: [Post] = []
     
     func fetchPosts() async {

@@ -8,49 +8,67 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @StateObject var viewModel = ProfileViewModel()
+    @ObservedObject var viewModel: ProfileViewModel
     @Environment(\.presentationMode) var presentationMode
-    let layout = [
-        GridItem(.fixed(100), alignment: .leading),
-        GridItem(.flexible(minimum: 40), alignment: .leading)
-    ]
     
     var body: some View {
-        if let user = viewModel.user {
-            Form {
-                LazyVGrid(columns: layout, content: {
-                    Text("Gmail:")
-                    ScrollView(.horizontal){
-                        Text(user.email)
-                            .foregroundStyle(Color.gray)
+        NavigationView {
+            if let user = viewModel.user {
+                Form {
+                    Section(header: Text("Profile")) {
+                        editableField("Full Name:", text: $viewModel.name)
+                        editableField("Telephone:", text: $viewModel.tel)
+                        
+                        Picker("Gender:", selection: $viewModel.gender) {
+                            ForEach(Gender.allCases, id: \.self) { gender in
+                                Text(gender.displayName).tag(gender)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        
+                        Text("Email: \(user.email)").foregroundColor(.gray)
+                        Text("Role: \(user.role.displayName)").foregroundColor(.gray)
                     }
-                    Text("Gender:")
-                    Text(user.gender.displayName)
-                        .foregroundStyle(Color.gray)
-                    Text("Full Name:")
-                    TextField("Full Name:", text: $viewModel.name)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                    Text("Telephone:")
-                    TextField("Telephone", text: $viewModel.tel)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                })
-                POSButton(title: "Save", background: .green) {
-                    viewModel.edit()
-                    self.presentationMode.wrappedValue.dismiss()
+                    
+                    
+                    Button("Save Changes") {
+                        viewModel.edit()
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.green)
+                    .cornerRadius(10)
                 }
-                .onAppear{
-                    viewModel.load()
+                .navigationTitle("Edit Profile")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
                 }
+            } else {
+                Text("Loading Profile...")
             }
-            .offset(y: -50)
-
-        } else {
-            Text("Loading")
+        }
+        .onAppear {
+            viewModel.load()
+        }
+    }
+    
+    private func editableField(_ label: String, text: Binding<String>) -> some View {
+        HStack {
+            Text(label).bold()
+            TextField("", text: text)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
         }
     }
 }
 
+
 #Preview {
-    EditProfileView()
+    EditProfileView(viewModel: ProfileViewModel())
 }
 

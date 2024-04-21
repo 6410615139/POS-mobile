@@ -11,6 +11,9 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @State private var showingEditPage = false
     @State private var showingHistoryPage = false
+    @State private var showConfirmationAlert = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     let layout = [
         GridItem(.fixed(60)),
@@ -75,6 +78,8 @@ struct ProfileView: View {
                                 viewModel.logOut()
                             }
                             .frame(width: 220, height: 50)
+                            
+                            deleteAccountButton
                         }
                     }
                 } else {
@@ -82,7 +87,7 @@ struct ProfileView: View {
                     logOutButton
                 }
             }
-            .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetchUser) {EditProfileView()}
+            .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetchUser) {EditProfileView(viewModel: viewModel)}
             .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetchUser) {StaffHistory()}
             .padding(30)
             
@@ -127,6 +132,28 @@ struct ProfileView: View {
         .background(Color.gray)
         .foregroundColor(.white)
         .clipShape(Capsule())
+    }
+    
+    private var deleteAccountButton: some View {
+        Button("Delete Account") {
+            showConfirmationAlert = true
+        }
+        .foregroundColor(.red)
+        .alert("Are you sure you want to delete your account?", isPresented: $showConfirmationAlert) {
+            Button("Cancel", role: .cancel) {}
+            Button("Delete", role: .destructive) {
+                viewModel.deleteAccount { success, error in
+                    if success {
+                        print("Account deleted")
+                    } else {
+                        alertMessage = error?.localizedDescription ?? "An error occurred"
+                        showAlert = true
+                    }
+                }
+            }
+        } message: {
+            Text("This action cannot be undone.")
+        }
     }
 }
 

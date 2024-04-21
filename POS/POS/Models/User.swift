@@ -9,13 +9,13 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct User: Codable, Identifiable {
-    let id: String
-    let name: String
+    var id: String?
+    var name: String
     let email: String
-    let tel: String
-    let gender: Gender
+    var tel: String
+    var gender: Gender
     let joined: TimeInterval
-    let role: UserRole
+    var role: UserRole
 }
 
 enum Gender: String, Codable, CaseIterable {
