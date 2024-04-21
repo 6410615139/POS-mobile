@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RegisterView: View {
     @StateObject var viewModel = RegisterViewModel()
-    let gender = ["Female", "Male", "LGBTQ"]
     
     var body: some View {
         VStack {
@@ -25,8 +24,8 @@ struct RegisterView: View {
                     .textFieldStyle(DefaultTextFieldStyle())
                 
                 Picker("Gender", selection: $viewModel.gender) {
-                    ForEach(gender, id: \.self) { option in
-                        Text(option).tag(option)
+                    ForEach(Gender.allCases, id: \.self) { gender in
+                        Text(gender.displayName).tag(gender)
                     }
                 }
                 

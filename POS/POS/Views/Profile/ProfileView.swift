@@ -35,7 +35,7 @@ struct ProfileView: View {
                             .foregroundColor(Color(UIColor(hex: "#ddedb6")))
                         VStack{
                             VStack(alignment: .leading){
-                                Text("STAFF")
+                                Text(user.role.displayName)
                                     .font(.system(size: 30))
                                     .foregroundColor(Color(UIColor(hex: "#10621b")))
                                 Text("Name-Surname:")
@@ -79,10 +79,11 @@ struct ProfileView: View {
                     }
                 } else {
                     Text("Loading Profile")
+                    logOutButton
                 }
             }
-            .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetch) {EditProfileView()}
-            .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetch) {StaffHistory()}
+            .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetchUser) {EditProfileView()}
+            .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetchUser) {StaffHistory()}
             .padding(30)
             
             // Picture
@@ -115,6 +116,17 @@ struct ProfileView: View {
             }.padding(.trailing, 60)
 
         }
+    }
+    
+    private var logOutButton: some View {
+        Button("Log Out") {
+            viewModel.logOut()
+        }
+        .padding()
+        .frame(width: 220, height: 50)
+        .background(Color.gray)
+        .foregroundColor(.white)
+        .clipShape(Capsule())
     }
 }
 

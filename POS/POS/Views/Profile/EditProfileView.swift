@@ -25,7 +25,7 @@ struct EditProfileView: View {
                             .foregroundStyle(Color.gray)
                     }
                     Text("Gender:")
-                    Text(user.gender)
+                    Text(user.gender.displayName)
                         .foregroundStyle(Color.gray)
                     Text("Full Name:")
                     TextField("Full Name:", text: $viewModel.name)

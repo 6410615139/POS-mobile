@@ -42,43 +42,6 @@ extension UIColor {
     }
 }
 
-extension Comment {
-    var dictionary: [String: Any] {
-        return [
-            "id": id,
-            "authorId": authorId,
-            "content": content,
-            "timestamp": timestamp
-        ]
-    }
-}
-
-extension Post {
-    func asDictionary() -> [String: Any] {
-        return [
-            "id": id,
-            "title": title,
-            "createDate": createDate,
-            "content": content,
-            "creator": creator,
-            "comments": comments.map { $0.asDictionary() },  // Assuming comments are also Codable
-            "likes": likes,
-        ]
-    }
-}
-
-extension User {
-    var asDictionary: [String: Any] {
-        return [
-            "id": id,
-            "name": name,
-            "email": email,
-            "tel": tel,
-            "gender": gender,
-            "joined": joined]
-    }
-}
-
 extension PostViewModel {
     // Check if the current user has liked the post
     var isLiked: Bool {

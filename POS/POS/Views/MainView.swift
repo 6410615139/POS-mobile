@@ -11,17 +11,19 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     
     var body: some View {
-        if  viewModel.isSignedIn,
-            !viewModel.currentUserId.isEmpty {
-            accountView
-        } else {
-            LoginView()
+        Group {
+            if viewModel.isSignedIn, let user = viewModel.user {
+                accountView(for: user)
+            } else {
+                LoginView()
+            }
         }
     }
     
-    var accountView: some View {
+    @ViewBuilder
+    private func accountView(for user: User) -> some View {
         TabView {
-            AnnounceView()
+            AnnounceView(user: user)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }

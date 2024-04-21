@@ -13,33 +13,28 @@ class ProfileViewModel: ObservableObject {
     @Published var user: User? = nil
     @Published var name = ""
     @Published var tel = ""
+    @Published var gender: Gender = .undefined
+    @Published var role = ""
     
     init() {
-        fetch()
+        fetchUser()
     }
     
-    func fetch() {
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
+    func fetchUser() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
         let db = Firestore.firestore()
-        db.collection("users")
-            .document(userId).getDocument { [weak self] snapshot, error in
-                guard let data = snapshot?.data(), error == nil else {
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self?.user = User(
-                        id: data["id"] as? String ?? "",
-                        name: data["name"] as? String ?? "",
-                        email: data["email"] as? String ?? "",
-                        tel: data["tel"] as? String ?? "",
-                        gender: data["gender"] as? String ?? "",
-                        joined: data["joined"] as? TimeInterval ?? 0
-                    )
-                }
+        db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
+            guard let self = self, let snapshot = snapshot, let data = snapshot.data(), error == nil else {
+                print("Error fetching user: \(error?.localizedDescription ?? "Unknown error")")
+                return
             }
+            do {
+                self.user = try snapshot.data(as: User.self)
+                self.load() // Update local properties with fetched data
+            } catch {
+                print("Error decoding user: \(error)")
+            }
+        }
     }
     
     private func validate() -> Bool {
@@ -54,35 +49,37 @@ class ProfileViewModel: ObservableObject {
     }
     
     func edit() {
-        guard validate() else {
-            return
-        }
         guard let uId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
             return
         }
         
-        let currentEmail = user?.email ?? ""
-        let currentGender = user?.gender ?? "Not Specified"
-        let currentJoined = user?.joined ?? Date().timeIntervalSince1970
-
-        let editUser = User(
-            id: uId,
-            name: name.isEmpty ? user?.name ?? "" : name,
-            email: currentEmail,
-            tel: tel.isEmpty ? user?.tel ?? "" : tel,
-            gender: currentGender,
-            joined: currentJoined
-        )
-
         let db = Firestore.firestore()
-        db.collection("users")
-            .document(uId)
-            .setData(editUser.asDictionary(), merge: true)
+        let userRef = db.collection("users").document(uId)
+        
+        let updatedUser = User(id: uId, name: name, email: user?.email ?? "", tel: tel, gender: gender, joined: user?.joined ?? Date().timeIntervalSince1970, role: user?.role ?? .staff)
+        
+        do {
+            try userRef.setData(from: updatedUser) { error in
+                if let error = error {
+                    print("Error updating user: \(error.localizedDescription)")
+                } else {
+                    print("User successfully updated")
+                }
+            }
+        } catch {
+            print("Failed to encode user: \(error)")
+        }
+        
+        // After updating the user, update the local user instance
+        self.user = updatedUser
     }
     
     func load() {
-        tel = user?.tel ?? ""
-        name = user?.name ?? ""
+        guard let currentUser = user else { return }
+        name = currentUser.name
+        tel = currentUser.tel
+        gender = currentUser.gender // Make sure the gender is set correctly from the user data
     }
     
     func logOut() {
@@ -90,6 +87,33 @@ class ProfileViewModel: ObservableObject {
             try Auth.auth().signOut()
         } catch {
             print(error)
+        }
+    }
+    
+    func deleteAccount(completion: @escaping (Bool, Error?) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(false, nil)  // No user is logged in.
+            return
+        }
+        
+        let userId = user.uid
+        let db = Firestore.firestore()
+        
+        // Delete user data from Firestore first
+        db.collection("users").document(userId).delete { error in
+            if let error = error {
+                completion(false, error)
+                return
+            }
+            
+            // Once the user data is deleted from Firestore, delete the authentication record
+            user.delete { error in
+                if let error = error {
+                    completion(false, error)
+                } else {
+                    completion(true, nil)
+                }
+            }
         }
     }
 }
