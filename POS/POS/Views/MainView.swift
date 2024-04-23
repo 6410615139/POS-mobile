@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
+    @State private var selectedTab: Int = 0
     
     var body: some View {
         Group {
@@ -22,34 +23,38 @@ struct MainView: View {
     
     @ViewBuilder
     private func accountView(for user: User) -> some View {
-        TabView {
-            AnnounceView(user: user)
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-            
-            DashboardView()
-                .tabItem {
-                    Label("Dashboard", systemImage: "clipboard.fill")
-                }
-            BillView()
-                .tabItem {
-                    Label("Bill", systemImage: "newspaper.fill")
-                }
-            
-            StockView()
-                .tabItem {
-                    Label("Stock", systemImage: "shippingbox.fill")
-                }
-            
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person.circle")
-                }
+        VStack(spacing: 0) {
+            // Content views
+            switch selectedTab {
+            case 0:
+                AnnounceView(user: user)
+            case 1:
+                DashboardView()
+            case 2:
+                BillView()
+            case 3:
+                StockView()
+            case 4:
+                ProfileView()
+            default:
+                Text("Selected tab \(selectedTab)")
+            }
+
+            // Custom tab bar
+            HStack {
+                customTabBarItem(selectedTab: $selectedTab, index: 0, label: "Home", icon: "house")
+                customTabBarItem(selectedTab: $selectedTab, index: 1, label: "Dashboard", icon: "clipboard.fill")
+                customTabBarItem(selectedTab: $selectedTab, index: 2, label: "Bill", icon: "newspaper.fill")
+                customTabBarItem(selectedTab: $selectedTab, index: 3, label: "Stock", icon: "shippingbox.fill")
+                customTabBarItem(selectedTab: $selectedTab, index: 4, label: "Profile", icon: "person.circle")
+            }
+            .padding(.horizontal)
         }
     }
 }
 
-#Preview {
-    MainView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
+    }
 }

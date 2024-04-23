@@ -29,6 +29,7 @@
 		C35ED7202BC52E0600E18856 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = C35ED71F2BC52E0600E18856 /* FirebasePerformance */; };
 		C35ED7222BC52E0600E18856 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = C35ED7212BC52E0600E18856 /* FirebaseRemoteConfig */; };
 		C3B89BE32BC53F470073EF27 /* LikedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B89BE22BC53F470073EF27 /* LikedUsersView.swift */; };
+		C3B89C232BD7C0C80073EF27 /* customTabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B89C222BD7C0C80073EF27 /* customTabBarItem.swift */; };
 		C3C2E2722BA2F0D900B3ED84 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */; };
 		CE6C33322BC5056700D754A8 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33312BC5056700D754A8 /* PostView.swift */; };
 		CE6C33342BC5058500D754A8 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33332BC5058500D754A8 /* PostViewModel.swift */; };
@@ -104,6 +105,7 @@
 		C35ED6D32BC0297000E18856 /* StaffHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffHistory.swift; sourceTree = "<group>"; };
 		C35ED6D52BC02E4100E18856 /* DataTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableModel.swift; sourceTree = "<group>"; };
 		C3B89BE22BC53F470073EF27 /* LikedUsersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedUsersView.swift; sourceTree = "<group>"; };
+		C3B89C222BD7C0C80073EF27 /* customTabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTabBarItem.swift; sourceTree = "<group>"; };
 		C3C2E2712BA2F0D900B3ED84 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		CE6C33312BC5056700D754A8 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		CE6C33332BC5058500D754A8 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				CE7F6FDF2BBFEDFA00F7B564 /* myButton.swift */,
 				CE8E6B2C2B9F4E1600F19E3D /* POSButton.swift */,
 				CE8E6B262B9F4D3F00F19E3D /* HeaderView.swift */,
+				C3B89C222BD7C0C80073EF27 /* customTabBarItem.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				CE6C33342BC5058500D754A8 /* PostViewModel.swift in Sources */,
 				CE7F6FEA2BBFF1E300F7B564 /* BillItemViewModel.swift in Sources */,
 				CE7F6FEC2BBFF43200F7B564 /* BillView.swift in Sources */,
+				C3B89C232BD7C0C80073EF27 /* customTabBarItem.swift in Sources */,
 				CE8E6AF32B9F46F400F19E3D /* POSApp.swift in Sources */,
 				CE6C333A2BC505B700D754A8 /* CommentView.swift in Sources */,
 				CE7F6FDA2BBFE65600F7B564 /* BillDetailsView.swift in Sources */,
