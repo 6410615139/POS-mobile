@@ -16,6 +16,10 @@ class PostViewModel: ObservableObject {
         fetchPost(postId: postId)
     }
     
+    var currentUserIsCreator: Bool {
+        let currentUserId = Auth.auth().currentUser?.uid
+        return post?.creator == currentUserId
+    }
     
     // Post section
     var formattedCreateDate: String {
@@ -207,11 +211,11 @@ class PostViewModel: ObservableObject {
             print("Post ID is unavailable.")
             return
         }
-
+        
         // find post in firebase and delete
         let db = Firestore.firestore()
         let postRef = db.collection("post").document(postId)
-
+        
         postRef.delete() { error in
             if let error = error {
                 print("Error removing post: \(error.localizedDescription)")

@@ -28,7 +28,9 @@ struct PostView: View {
                             .bold()
                         Spacer()
                         
-                        configButton
+                        if viewModel.currentUserIsCreator {
+                            configButton
+                        }
                     }
                     
                     Text("Posted on \(viewModel.formattedCreateDate)")
@@ -145,5 +147,5 @@ struct PostView: View {
 
 #Preview {
     PostView(viewModel: PostViewModel(
-        postId: "896F3AC2-BC69-4411-BB3E-A29B0EFFF633"))
+        postId: "F4508F27-09D6-419C-B758-9C045826489E"))
 }
