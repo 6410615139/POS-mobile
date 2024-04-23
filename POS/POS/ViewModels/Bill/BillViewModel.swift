@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class BillViewModel: ObservableObject {
     @Published var showingnewItemView = false
+    @Published var newBillId: String = ""
     
     func delete(id: String) {
         let db = Firestore.firestore()
@@ -21,11 +22,12 @@ class BillViewModel: ObservableObject {
     
     func create_bill() {
         let orders = [Order]()
-        let new_bill = Bill(id: UUID().uuidString, table: "0", createDate: Date().timeIntervalSince1970, orders: orders, owner: "-")
+        let newId = UUID().uuidString
+        let new_bill = Bill(id: newId, table: "0", createDate: Date().timeIntervalSince1970, orders: orders, owner: "-")
         let db = Firestore.firestore()
         db.collection("bills")
             .document(String(new_bill.id))
             .setData(new_bill.asDictionary())
-        BillDetailsView(itemId: String(new_bill.id))
+        self.newBillId = newId
     }
 }

@@ -10,6 +10,7 @@ import FirebaseFirestoreSwift
 
 struct BillView: View {
     
+    @State private var shouldNavigate = false
     @StateObject var viewModel: BillViewModel
     @FirestoreQuery var items: [Bill]
     @State private var showDeleteConfirmation = false
@@ -33,16 +34,23 @@ struct BillView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
                     // Button for adding a new bill
-                    Button(action: viewModel.create_bill) {
+                    NavigationView {
                         VStack {
-                            Image(systemName: "plus.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .padding(20)
+                            Button(action: {
+                                viewModel.create_bill()
+                                self.shouldNavigate = true  // Trigger navigation after action
+                            }) {
+                                VStack {
+                                    Image(systemName: "plus.circle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding(20)
+                                }
+                                .frame(width: itemSize.width, height: itemSize.height)
+                                .background(Color(UIColor.systemGray6))
+                                .cornerRadius(10)
+                            }
                         }
-                        .frame(width: itemSize.width, height: itemSize.height)
-                        .background(Color(UIColor.systemGray6))
-                        .cornerRadius(10)
                     }
                     
                     ForEach(items) { item in
@@ -67,6 +75,12 @@ struct BillView: View {
                             .onLongPressGesture {
                                 itemToDelete = item
                             }
+                        
+                    }
+                    Spacer()
+                    // Hidden NavigationLink that triggers the actual navigation
+                    NavigationLink(destination: MenuView(billId: viewModel.newBillId), isActive: $shouldNavigate) {
+                        EmptyView()
                     }
                 }
                 .padding()
