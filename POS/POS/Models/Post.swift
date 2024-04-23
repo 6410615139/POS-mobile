@@ -9,9 +9,9 @@ import Foundation
 
 struct Post: Codable {
     let id: String
-    let title: String
+    var title: String
     let createDate: TimeInterval
-    let content: String
+    var content: String
     let creator: String
     var comments: [Comment]
     var likes: [User]

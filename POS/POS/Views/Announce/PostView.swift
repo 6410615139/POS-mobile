@@ -11,14 +11,23 @@ struct PostView: View {
     @ObservedObject var viewModel: PostViewModel
     @State private var newCommentText: String = ""
     @State private var showingLikedUsers = false
+    @State private var showConfigMenu = false
+    @State private var showingEditView = false
+    @State private var showingDeleteAlert = false
+    
     
     var body: some View {
         ScrollView {
             if let post = viewModel.post {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(post.title)
-                        .font(.title)
-                        .bold()
+                    HStack {
+                        Text(post.title)
+                            .font(.title)
+                            .bold()
+                        Spacer()
+                        
+                        configButton
+                    }
                     
                     Text("Posted on \(viewModel.formattedCreateDate)")
                         .font(.subheadline)
@@ -42,16 +51,14 @@ struct PostView: View {
                     // Like count and liked user list
                     if !viewModel.post!.likes.isEmpty {
                         Button(action: {
-                            showingLikedUsers = true  // Set to true to show the sheet
+                            showingLikedUsers = true
                         }) {
                             HStack {
                                 Image(systemName: "heart.circle.fill").foregroundColor(.red)
                                 Text("\(viewModel.likeCount)")
                             }
                         }
-                        // Use .sheet here within the body of a view
                         .sheet(isPresented: $showingLikedUsers) {
-                            // Present the LikedUsersView as the content of the sheet
                             LikedUsersView(likes: viewModel.post!.likes)
                         }
                     }
@@ -88,8 +95,49 @@ struct PostView: View {
                     .font(.headline)
             }
         }
+        .sheet(isPresented: $showingEditView) {
+            EditPostView(post: $viewModel.post, onCommit: { newTitle, newContent in
+                viewModel.editPost(newTitle: newTitle, newContent: newContent)
+            })
+        }
         .navigationBarTitle("Post Details", displayMode: .inline)
     }
+    
+    private var configButton: some View {
+        Button(action: {
+            self.showConfigMenu = true
+        }) {
+            Image(systemName: "ellipsis.circle")
+                .imageScale(.large)
+        }
+        .actionSheet(isPresented: $showConfigMenu) {
+            ActionSheet(
+                title: Text("Options"),
+                buttons: [
+                    .default(Text("Edit")) {
+                        self.showingEditView = true
+                    },
+                    .destructive(Text("Delete")) {
+                        self.showingDeleteAlert = true
+                    },
+                    .cancel()
+                ]
+            )
+        }
+        .alert(isPresented: $showingDeleteAlert) {
+            Alert(
+                title: Text("Are you sure you want to delete this post?"),
+                message: Text("This action cannot be undone."),
+                primaryButton: .destructive(Text("Delete")) {
+                    viewModel.deletePost()
+                    // Here you would navigate the user away from the deleted post's detail view
+                    // This depends on your navigation structure, e.g., using a NavigationLink or programmatically
+                },
+                secondaryButton: .cancel()
+            )
+        }
+    }
+    
 }
 
 
