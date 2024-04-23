@@ -34,13 +34,16 @@ struct ProfileView: View {
                     Spacer()
                         .frame(maxHeight: 130)
                     ZStack{
-                        RoundedRectangle(cornerRadius: 25)
+                        RoundedRectangle(cornerRadius: 22)
                             .foregroundColor(Color(UIColor(hex: "#ddedb6")))
                         VStack{
                             VStack(alignment: .leading){
                                 Text(user.role.displayName)
                                     .font(.system(size: 30))
+                                    .fontWeight(.bold)
                                     .foregroundColor(Color(UIColor(hex: "#10621b")))
+                                    .padding(.vertical, 5)
+                                    .padding(.top, 7)
                                 Text("Name-Surname:")
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 25)
@@ -93,18 +96,23 @@ struct ProfileView: View {
             
             // Picture
             VStack{
-                Spacer().frame(height: 30)
-                Image(systemName: "person.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 200)
-                    .foregroundColor(Color(UIColor(hex: "#9ed461")))
+                Spacer().frame(height: 27)
+                ZStack{
+                    Circle()
+                        .frame(width: 170)
+                        .foregroundColor(Color.white)
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 160)
+                        .foregroundColor(Color(UIColor(hex: "#9ed461")))
+                }
                 Spacer()
             }
             
             // Edit Button
             VStack{
-                Spacer().frame(height: 190)
+                Spacer().frame(height: 182)
                 HStack{
                     Spacer()
                     Button{
@@ -113,7 +121,7 @@ struct ProfileView: View {
                         Image(systemName: "gearshape.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 25)
+                            .frame(width: 20)
                             .foregroundColor(Color(UIColor(hex: "#6dad53")))
                     }
                 }
@@ -154,6 +162,7 @@ struct ProfileView: View {
         } message: {
             Text("This action cannot be undone.")
         }
+        .padding(.bottom)
     }
 }
 
