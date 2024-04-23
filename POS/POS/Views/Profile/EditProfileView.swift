@@ -1,72 +1,3 @@
-//
-//  EditProfileView.swift
-//  POS
-//
-//  Created by ชลิศา ธรรมราช on 2/4/2567 BE.
-//
-//
-//import SwiftUI
-//
-//struct EditProfileView: View {
-//    @ObservedObject var viewModel: ProfileViewModel
-//    @Environment(\.presentationMode) var presentationMode
-//    
-//    var body: some View {
-//        NavigationView {
-//            if let user = viewModel.user {
-//                Form {
-//                    Section(header: Text("Profile")) {
-//                        editableField("Full Name:", text: $viewModel.name)
-//                        editableField("Telephone:", text: $viewModel.tel)
-//                        
-//                        Picker("Gender:", selection: $viewModel.gender) {
-//                            ForEach(Gender.allCases, id: \.self) { gender in
-//                                Text(gender.displayName).tag(gender)
-//                            }
-//                        }
-//                        .pickerStyle(SegmentedPickerStyle())
-//                        
-//                        Text("Email: \(user.email)").foregroundColor(.gray)
-//                        Text("Role: \(user.role.displayName)").foregroundColor(.gray)
-//                        
-//                        Button("Save Changes") {
-//                            viewModel.edit()
-//                            presentationMode.wrappedValue.dismiss()
-//                        }
-//                        .foregroundColor(.white)
-//                        .frame(maxWidth: .infinity)
-//                        .padding()
-//                        .background(Color(UIColor(hex: "#387440")))
-//                    }
-//                    .listRowBackground(Color(UIColor(hex: "#ddedb6")))
-//                }
-//                .navigationTitle("Edit Profile")
-//                .toolbar {
-//                    ToolbarItem(placement: .navigationBarLeading) {
-//                        Button("Cancel") {
-//                            presentationMode.wrappedValue.dismiss()
-//                        }
-//                    }
-//                }
-//            } else {
-//                Text("Loading Profile...")
-//            }
-//        }
-//        .onAppear {
-//            viewModel.load()
-//        }
-//    }
-//    
-//    private func editableField(_ label: String, text: Binding<String>) -> some View {
-//        VStack(alignment: .leading) {
-//            Text(label).bold()
-//            TextField("", text: text)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .cornerRadius(25)
-//        }
-//    }
-//}
-
 import SwiftUI
 
 struct EditProfileView: View {
@@ -86,36 +17,41 @@ struct EditProfileView: View {
                         ZStack {
                             Circle()
                                 .fill(Color.white)
-                                .frame(width: 90, height: 90)
+                                .frame(width: 100, height: 100)
                                 .shadow(radius: 3)
                             
                             Image(systemName: "camera")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 70)
                                 .foregroundColor(Color(UIColor(hex: "#387440")))
                                 .padding()
                                 .background(Color.white)
                                 .clipShape(Circle())
-                                .overlay(Circle().stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 2))
+                                .overlay(Circle().stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 4))
                         }
-                        .padding(.top, 30)
+                        .padding(.top, 20)
                         
                         // Form
                         Form {
-                            Section(header: Text("Profile")) {
+                            Section {
                                 editableField("Full Name:", text: $viewModel.name)
                                 editableField("Telephone:", text: $viewModel.tel)
                                 
                                 Picker("Gender:", selection: $viewModel.gender) {
                                     ForEach(Gender.allCases, id: \.self) { gender in
-                                        Text(gender.displayName).tag(gender)
+                                        Text(gender.displayName)
+                                            .foregroundColor(Color(UIColor(hex: "#387440")))
+                                            .tag(gender)
                                     }
                                 }
                                 .pickerStyle(SegmentedPickerStyle())
+                                .padding(.vertical, 3)
                                 
                                 Text("Email: \(user.email)").foregroundColor(.gray)
+                                    .padding(.vertical, 5)
                                 Text("Role: \(user.role.displayName)").foregroundColor(.gray)
+                                    .padding(.vertical, 5)
                             }
                             .listRowBackground(Color(UIColor(hex: "#ddedb6")))
                             
@@ -140,9 +76,14 @@ struct EditProfileView: View {
                         .background(Color.clear)
                     }
                 }
-                .navigationTitle("Edit Profile")
-                .navigationBarItems(leading: Button("Cancel") {
+                .navigationBarItems(leading: Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Cancel")
+                        .foregroundColor(Color(UIColor(hex: "#ddedb6")))
+                        .font(.headline)
+                        .bold()
+                        .padding(.leading, 7)
                 })
             } else {
                 Text("Loading Profile...")
@@ -156,6 +97,7 @@ struct EditProfileView: View {
     private func editableField(_ label: String, text: Binding<String>) -> some View {
         VStack(alignment: .leading) {
             Text(label).bold()
+                .foregroundColor(Color(UIColor(hex: "#387440")))
             TextField("", text: text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .cornerRadius(25)
