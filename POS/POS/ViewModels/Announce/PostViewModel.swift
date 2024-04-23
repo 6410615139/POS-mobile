@@ -109,7 +109,7 @@ class PostViewModel: ObservableObject {
                 
                 // add user to likes field
                 postRef.updateData([
-                    "likes": FieldValue.arrayUnion([user.asDictionary])
+                    "likes": FieldValue.arrayUnion([user.asDictionary()])
                 ]) { error in
                     if let error = error {
                         print("Error updating likes: \(error.localizedDescription)")
@@ -148,7 +148,7 @@ class PostViewModel: ObservableObject {
                 
                 // add user to likes field
                 postRef.updateData([
-                    "likes": FieldValue.arrayRemove([user.asDictionary])
+                    "likes": FieldValue.arrayRemove([user.asDictionary()])
                 ]) { error in
                     if let error = error {
                         print("Error updating likes: \(error.localizedDescription)")

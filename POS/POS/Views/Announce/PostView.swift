@@ -95,5 +95,5 @@ struct PostView: View {
 
 #Preview {
     PostView(viewModel: PostViewModel(
-        postId: "99092B4C-3620-4138-BEF0-A232686C1DA4"))
+        postId: "896F3AC2-BC69-4411-BB3E-A29B0EFFF633"))
 }
