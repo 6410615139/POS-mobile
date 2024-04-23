@@ -18,7 +18,12 @@ struct AnnounceView: View {
                     NavigationLink(destination: PostView(viewModel: PostViewModel(postId: post.id))) {
                         AnnounceItemView(item: post)
                     }
+                    .padding()
+                    .background(Color.white) // Use your actual background color
+                    .cornerRadius(10)
+                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
                 }
+                .listStyle(PlainListStyle())
             }
             .navigationTitle("Announcements")
             .toolbar {
