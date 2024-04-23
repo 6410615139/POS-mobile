@@ -14,12 +14,6 @@ struct BillItemView: View {
 
     var body: some View {
         HStack {
-            // NavigationLink disguised as part of the HStack content
-//            NavigationLink(destination: BillDetailsView(itemId: item.id), isActive: $isNavigationActive) {
-//                EmptyView()
-//            }
-//            .frame(width: 0)
-//            .opacity(0)
             NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigationActive) {
                 EmptyView()
             }
@@ -42,7 +36,7 @@ struct BillItemView: View {
             .onTapGesture {
                 isNavigationActive = true
             }
-            .background(NavigationLink("", destination: BillDetailsView(itemId: item.id)).hidden())
+            .background(NavigationLink("", destination: MenuView(billId: item.id)).hidden())
             Spacer()
         }
     }

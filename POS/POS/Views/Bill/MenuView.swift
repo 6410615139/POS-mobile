@@ -41,7 +41,7 @@ struct MenuView: View {
                     }
                 }
                 .padding()
-            }            .navigationTitle("Bills")
+            }            .navigationTitle("Order")
             
         }
     }
