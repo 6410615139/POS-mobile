@@ -42,7 +42,7 @@ struct MainView: View {
 
             // Custom tab bar
             HStack {
-                customTabBarItem(selectedTab: $selectedTab, index: 0, label: "Home", icon: "house")
+                customTabBarItem(selectedTab: $selectedTab, index: 0, label: "Home", icon: "house.fill")
                 customTabBarItem(selectedTab: $selectedTab, index: 1, label: "Dashboard", icon: "clipboard.fill")
                 customTabBarItem(selectedTab: $selectedTab, index: 2, label: "Bill", icon: "newspaper.fill")
                 customTabBarItem(selectedTab: $selectedTab, index: 3, label: "Stock", icon: "shippingbox.fill")
