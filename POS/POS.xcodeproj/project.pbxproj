@@ -44,7 +44,6 @@
 		CE6C334F2BC5217B00D754A8 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C334E2BC5217B00D754A8 /* MenuItemView.swift */; };
 		CE6C33512BC521A300D754A8 /* MenuItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33502BC521A300D754A8 /* MenuItemViewModel.swift */; };
 		CE6C33542BC53DC900D754A8 /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33532BC53DC900D754A8 /* StockViewModel.swift */; };
-		CE6C33562BC53E4100D754A8 /* LikedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33552BC53E4100D754A8 /* LikedUsersView.swift */; };
 		CE6C33582BC53E9800D754A8 /* StockItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33572BC53E9800D754A8 /* StockItemView.swift */; };
 		CE6C335A2BC53EA800D754A8 /* StockItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C33592BC53EA800D754A8 /* StockItemViewModel.swift */; };
 		CE6C335C2BC545A600D754A8 /* NewProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C335B2BC545A600D754A8 /* NewProductView.swift */; };
@@ -121,7 +120,6 @@
 		CE6C334E2BC5217B00D754A8 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		CE6C33502BC521A300D754A8 /* MenuItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemViewModel.swift; sourceTree = "<group>"; };
 		CE6C33532BC53DC900D754A8 /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
-		CE6C33552BC53E4100D754A8 /* LikedUsersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikedUsersView.swift; path = POS/Views/Announce/LikedUsersView.swift; sourceTree = SOURCE_ROOT; };
 		CE6C33572BC53E9800D754A8 /* StockItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockItemView.swift; sourceTree = "<group>"; };
 		CE6C33592BC53EA800D754A8 /* StockItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockItemViewModel.swift; sourceTree = "<group>"; };
 		CE6C335B2BC545A600D754A8 /* NewProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductView.swift; sourceTree = "<group>"; };
@@ -197,8 +195,21 @@
 		7B9750D72BD8061C005565ED /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */,
 				CE6C33332BC5058500D754A8 /* PostViewModel.swift */,
+				CE6C33352BC505A300D754A8 /* CommentViewModel.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		7B9750DA2BD80A59005565ED /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */,
 				7B9750D82BD8062C005565ED /* EditPostView.swift */,
+				CE6C33312BC5056700D754A8 /* PostView.swift */,
+				CE6C33392BC505B700D754A8 /* CommentView.swift */,
+				C3B89BE22BC53F470073EF27 /* LikedUsersView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -236,13 +247,10 @@
 		CE6C33402BC506F100D754A8 /* Announce */ = {
 			isa = PBXGroup;
 			children = (
+				7B9750DA2BD80A59005565ED /* Post */,
 				7BCD6E3E2BD4F907000F6162 /* Owner */,
-				CE6C33392BC505B700D754A8 /* CommentView.swift */,
 				CE6C333B2BC505C600D754A8 /* AnnounceView.swift */,
 				CE6C333D2BC505CC00D754A8 /* AnnounceItemView.swift */,
-				CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */,
-				C3B89BE22BC53F470073EF27 /* LikedUsersView.swift */,
-				CE6C33312BC5056700D754A8 /* PostView.swift */,
 			);
 			path = Announce;
 			sourceTree = "<group>";
@@ -330,9 +338,6 @@
 			children = (
 				7B9750D72BD8061C005565ED /* Post */,
 				7BCD6E412BD4F981000F6162 /* Owner */,
-				CE6C33552BC53E4100D754A8 /* LikedUsersView.swift */,
-				CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */,
-				CE6C33352BC505A300D754A8 /* CommentViewModel.swift */,
 				CE6C33372BC505AC00D754A8 /* AnnounceViewModel.swift */,
 			);
 			path = Announce;
@@ -556,7 +561,6 @@
 				CE7F6FE82BBFF19F00F7B564 /* BillItemView.swift in Sources */,
 				CE8E6B072B9F4A6300F19E3D /* MainView.swift in Sources */,
 				CE8E6B3D2B9F55C600F19E3D /* LoginViewModel.swift in Sources */,
-				CE6C33562BC53E4100D754A8 /* LikedUsersView.swift in Sources */,
 				CE7F6FD62BBFE23300F7B564 /* Order.swift in Sources */,
 				CE7F6FE02BBFEDFA00F7B564 /* myButton.swift in Sources */,
 				C35ED6CE2BBC605E00E18856 /* StockView.swift in Sources */,

@@ -15,6 +15,8 @@ struct PostView: View {
     @State private var showingEditView = false
     @State private var showingDeleteAlert = false
     
+    @Environment(\.presentationMode) var presentationMode
+    
     
     var body: some View {
         ScrollView {
@@ -130,8 +132,8 @@ struct PostView: View {
                 message: Text("This action cannot be undone."),
                 primaryButton: .destructive(Text("Delete")) {
                     viewModel.deletePost()
-                    // Here you would navigate the user away from the deleted post's detail view
-                    // This depends on your navigation structure, e.g., using a NavigationLink or programmatically
+                    // Use this to pop the current view off the navigation stack
+                    self.presentationMode.wrappedValue.dismiss()
                 },
                 secondaryButton: .cancel()
             )
