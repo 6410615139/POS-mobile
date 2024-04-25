@@ -18,6 +18,7 @@ class BillDetailsViewModel: ObservableObject {
     init(itemId: String) {
         self.itemId = itemId
         fetch_item()
+        fetchOrders()
     }
     
     func fetch_item() {
@@ -44,5 +45,28 @@ class BillDetailsViewModel: ObservableObject {
                 
             }
         self.orders = self.item?.orders
+    }
+    
+    func fetchOrders() {
+        let db = Firestore.firestore()
+        db.collection("bills").document(itemId).collection("orders").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching orders: \(error)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No orders found")
+                return
+            }
+            
+            do {
+                self.orders = try documents.compactMap {
+                    try $0.data(as: Order.self)
+                }
+            } catch {
+                print("Error decoding orders: \(error)")
+            }
+        }
     }
 }

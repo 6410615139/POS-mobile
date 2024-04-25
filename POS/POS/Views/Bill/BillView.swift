@@ -12,7 +12,8 @@ struct BillView: View {
     
     @State private var shouldNavigate = false
     @StateObject var viewModel: BillViewModel
-    @FirestoreQuery var items: [Bill]
+    @State private var searchQuery = ""
+    @FirestoreQuery(collectionPath: "bills") var allItems: [Bill]
     @State private var showDeleteConfirmation = false
     @State private var itemToDelete: Bill? = nil
     
@@ -21,70 +22,78 @@ struct BillView: View {
         GridItem(.flexible(), spacing: 20)
     ]
     
-    // Specify the size for each item
     private let itemSize: CGSize = CGSize(width: 150, height: 150)
-    
+
     init() {
-        self._items = FirestoreQuery(collectionPath: "bills")
         self._viewModel = StateObject(wrappedValue: BillViewModel())
+    }
+    
+    var filteredItems: [Bill] {
+        if searchQuery.isEmpty {
+            return allItems
+        } else {
+            return allItems.filter { item in
+                item.table.lowercased().contains(searchQuery.lowercased())
+            }
+        }
     }
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    // Button for adding a new bill
-                    NavigationView {
-                        VStack {
-                            Button(action: {
-                                viewModel.create_bill()
-                                self.shouldNavigate = true  // Trigger navigation after action
-                            }) {
-                                VStack {
-                                    Image(systemName: "plus.circle.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .padding(20)
-                                }
-                                .frame(width: itemSize.width, height: itemSize.height)
-                                .background(Color(UIColor.systemGray6))
-                                .cornerRadius(10)
+            VStack {
+                TextField("Search bills...", text: $searchQuery)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        Button(action: {
+                            viewModel.create_bill()
+                            shouldNavigate = true  // Set to true to navigate after bill creation
+                        }) {
+                            VStack {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(20)
                             }
-                        }
-                    }
-                    
-                    ForEach(items) { item in
-                        BillItemView(item: item)
                             .frame(width: itemSize.width, height: itemSize.height)
-                            .background(Color(UIColor.systemBackground)) // Use appropriate background color
+                            .background(Color(UIColor.systemGray6))
                             .cornerRadius(10)
-                            .shadow(radius: 2)
-                            .overlay(
-                                VStack {
-                                    if itemToDelete?.id == item.id {
-                                        Button("Delete") {
-                                            showDeleteConfirmation = true
-                                        }
-                                        .padding()
-                                        .background(Color.red)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                    }
-                                }
-                            )
-                            .onLongPressGesture {
-                                itemToDelete = item
-                            }
+                        }
                         
-                    }
-                    Spacer()
-                    // Hidden NavigationLink that triggers the actual navigation
-                    NavigationLink(destination: MenuView(billId: viewModel.newBillId), isActive: $shouldNavigate) {
-                        EmptyView()
+                        ForEach(filteredItems, id: \.id) { item in
+                            BillItemView(item: item)
+                                .frame(width: itemSize.width, height: itemSize.height)
+                                .background(Color(UIColor.systemBackground))
+                                .cornerRadius(10)
+                                .shadow(radius: 2)
+                                .overlay(
+                                    VStack {
+                                        if itemToDelete?.id == item.id {
+                                            Button("Delete") {
+                                                showDeleteConfirmation = true
+                                            }
+                                            .padding()
+                                            .background(Color.red)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                        }
+                                    }
+                                )
+                                .onLongPressGesture {
+                                    itemToDelete = item
+                                }
+                        }
+                        // Hidden NavigationLink
+                        NavigationLink(destination: MenuView(billId: viewModel.newBillId), isActive: $shouldNavigate) {
+                            EmptyView()
+                        }
                     }
                 }
                 .padding()
-            }            .navigationTitle("Bills")
+            }
+            .navigationTitle("Bills")
             .alert(isPresented: $showDeleteConfirmation) {
                 Alert(
                     title: Text("Confirm Deletion"),
@@ -100,7 +109,6 @@ struct BillView: View {
                     }
                 )
             }
-            // Reset the delete button visibility when tapping outside
             .onTapGesture {
                 itemToDelete = nil
             }

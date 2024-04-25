@@ -11,47 +11,98 @@ import FirebaseFirestoreSwift
 struct BillDetailsView: View {
     @StateObject var viewModel: BillDetailsViewModel
     
-    private var columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    init(itemId: String) {
-        _viewModel = StateObject(wrappedValue: BillDetailsViewModel(itemId: itemId))
-    }
-    
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                if let item = viewModel.item {
-                    // First column content
-                    VStack(alignment: .leading, spacing: 10) {
-                        // Add content specific to the first column here
-                        // For example, show part of the item details
-                        Text("Product: \(item.orders)")
-                            .font(.body)
-                            .foregroundColor(.primary)
-                    }
-                    .padding()
-                    .background(Color(UIColor.secondarySystemBackground))
-                    .cornerRadius(10)
-
-                } else {
-                    Text("Loading details...")
-                        .font(.body)
-                        .foregroundColor(.gray)
-                    Spacer()
-                }
+        VStack {
+            // Header
+            HStack {
+                Image(systemName: "arrow.left")
+                Spacer()
+                Text("Table X")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Spacer()
+                Image(systemName: "gear")
             }
             .padding()
+            
+            // Details Section
+            VStack(alignment: .leading, spacing: 4) {
+//                DetailField(label: "Staff", value: viewModel.item?.staff ?? "")
+//                DetailField(label: "Time", value: String(viewModel.item?.createDate ?? ""))
+//                DetailField(label: "Status", value: viewModel.item?.status ?? "")
+            }
+            .padding(.horizontal)
+            
+            // Orders List
+            ScrollView {
+                LazyVStack(spacing: 12) {
+//                    ForEach(viewModel.orders ?? [], id: \.self) { order in
+//                        OrderRow(order: order)
+//                    }
+                }
+                .padding(.horizontal)
+            }
+            
+            // Total and Payment
+            VStack {
+                HStack {
+                    Text("Total")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                    Spacer()
+//                    Text(viewModel.totalString)
+                        .font(.title3)
+                }
+                .padding()
+                
+//                Button(action: viewModel.pay) {
+//                    Text("PAYMENT")
+//                        .font(.headline)
+//                        .foregroundColor(.white)
+//                        .frame(maxWidth: .infinity)
+//                        .padding()
+//                        .background(Color.green)
+//                        .cornerRadius(10)
+//                }
+//                .padding(.horizontal)
+            }
         }
-        .navigationTitle("Table: \(String(describing: viewModel.item?.table))")
+        .navigationTitle("Table: \(viewModel.item?.table ?? "")")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            // Toolbar items here
+    }
+}
+
+struct DetailField: View {
+    var label: String
+    var value: String
+    
+    var body: some View {
+        HStack {
+            Text(label + ":")
+                .foregroundColor(.gray)
+            Spacer()
+            Text(value)
         }
-        .onChange(of: viewModel.showingEditView) {
-            viewModel.fetch_item()
+        .padding()
+        .background(Color(UIColor.secondarySystemBackground))
+        .cornerRadius(8)
+    }
+}
+
+struct OrderRow: View {
+    var order: Order
+    
+    var body: some View {
+        HStack {
+            Text(order.product.product_name)
+                .font(.headline)
+            Spacer()
+            Text("x\(order.amount)")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
         }
+        .padding()
+        .background(Color(UIColor.secondarySystemBackground))
+        .cornerRadius(8)
     }
 }

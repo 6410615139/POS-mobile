@@ -11,6 +11,7 @@ struct MenuItemView: View {
     @StateObject var viewModel: MenuItemViewModel
     var item: Product
     @State private var quantity: Int = 1
+    @State private var navigateToBillDetails = false
 
     init(billId: String, product: Product) {
         _viewModel = StateObject(wrappedValue: MenuItemViewModel(billId: billId))
@@ -61,6 +62,7 @@ struct MenuItemView: View {
             // Add to cart button
             Button(action: {
                 viewModel.addToCart(product: item, amount: quantity)
+                navigateToBillDetails = true
             }) {
                 Text("Add to Cart")
                     .fontWeight(.bold)
@@ -69,6 +71,12 @@ struct MenuItemView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             }
+//            .background(
+//                NavigationLink(destination: BillDetailsView(itemId: viewModel.billId), isActive: $navigateToBillDetails) {
+//                    EmptyView()
+//                }
+//                .hidden()
+//            )
         }
         .padding()
         .background(Color(UIColor.systemBackground))
@@ -76,4 +84,3 @@ struct MenuItemView: View {
         .shadow(radius: 3)
     }
 }
-

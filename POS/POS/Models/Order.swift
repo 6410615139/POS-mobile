@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Order: Codable {
+struct Order: Codable , Identifiable{
     let id: String
     var amount: Int
     var product: Product
