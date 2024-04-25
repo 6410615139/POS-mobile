@@ -24,18 +24,21 @@ struct ProfileView: View {
         ZStack{
             VStack{
                 Rectangle()
-                    .frame(maxWidth: .infinity, maxHeight: 180)
+                    .frame(maxWidth: .infinity, maxHeight: 170)
                     .foregroundColor(Color(UIColor(hex: "#387440")))
                     .edgesIgnoringSafeArea(.all)
-                Spacer()
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundColor(Color.white)
+                    .edgesIgnoringSafeArea(.all)
+                //Spacer()
             }
             VStack{
                 if let user = viewModel.user {
-                    Spacer()
-                        .frame(maxHeight: 130)
                     ZStack{
                         RoundedRectangle(cornerRadius: 22)
                             .foregroundColor(Color(UIColor(hex: "#ddedb6")))
+                            .padding(.bottom, 30)
                         VStack{
                             VStack(alignment: .leading){
                                 Text(user.role.displayName)
@@ -43,7 +46,6 @@ struct ProfileView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(Color(UIColor(hex: "#10621b")))
                                     .padding(.vertical, 5)
-                                    .padding(.top, 7)
                                 Text("Name-Surname:")
                                 ZStack{
                                     RoundedRectangle(cornerRadius: 25)
@@ -70,7 +72,8 @@ struct ProfileView: View {
                                         .frame(width: 230, height: 30, alignment: .leading)
                                 }
                             }
-                            .padding(30)
+                            .padding(.horizontal ,30)
+                            .padding(.bottom, 20)
                             
                             POSButton(title: "History", background: Color(UIColor(hex: "#9ed461"))){
                                 showingHistoryPage = true
@@ -84,7 +87,7 @@ struct ProfileView: View {
                             
                             deleteAccountButton
                         }
-                    }
+                    }.padding(.top, 130)
                 } else {
                     Text("Loading Profile")
                     logOutButton
@@ -92,27 +95,29 @@ struct ProfileView: View {
             }
             .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetchUser) {EditProfileView(viewModel: viewModel)}
             .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetchUser) {StaffHistory()}
-            .padding(30)
+            .padding(.horizontal ,30)
             
             // Picture
             VStack{
-                Spacer().frame(height: 27)
+                //Spacer().frame(height: 27)
                 ZStack{
                     Circle()
-                        .frame(width: 170)
+                        .frame(width: 150)
                         .foregroundColor(Color.white)
                     Image(systemName: "person.circle.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 160)
+                        .frame(width: 140)
                         .foregroundColor(Color(UIColor(hex: "#9ed461")))
                 }
+                .padding(.top, 20)
+//                .padding(.bottom, .infinity)
                 Spacer()
             }
             
             // Edit Button
             VStack{
-                Spacer().frame(height: 182)
+                Spacer().frame(height: 152)
                 HStack{
                     Spacer()
                     Button{
