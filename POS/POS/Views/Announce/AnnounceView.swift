@@ -20,8 +20,7 @@ struct AnnounceView: View {
                     }
                     .padding()
                     .background(Color.white) // Use your actual background color
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                    .border(Color(UIColor(hex: "#ddedb6")), width: 7)
                 }
                 .listStyle(PlainListStyle())
             }
@@ -65,7 +64,6 @@ struct AnnounceView: View {
                     }
                 }
             }
-            
         }
     }
 }

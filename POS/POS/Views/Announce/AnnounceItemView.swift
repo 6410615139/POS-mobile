@@ -18,17 +18,23 @@ struct AnnounceItemView: View {
                 .font(.headline)
                 .bold()
             
-            Text("By \(userName)")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            
-            Text("\(relativeTime(for: item.createDate))")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            HStack{
+                Text("By \(userName)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                
+                Text("·")
+                    .bold()
+                    .foregroundColor(.secondary)
+                
+                Text("\(relativeTime(for: item.createDate))")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
             
             Text(item.content)
                 .font(.body)
-                .lineLimit(1) // Limit to 3 lines of content for a brief snippet
+                .lineLimit(2) // Limit to 3 lines of content for a brief snippet
         }
         .padding(.vertical)
         .onAppear {
