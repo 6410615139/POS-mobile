@@ -17,6 +17,7 @@ struct MenuView: View {
     @State private var table: String = ""
     @State private var owner: String = ""
     @State private var searchQuery = ""  // For product search
+    @State private var navigateToBillDetails = false  // State for navigation
 
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
@@ -45,6 +46,7 @@ struct MenuView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
+                    // Input fields for table and owner
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Table")
@@ -63,16 +65,28 @@ struct MenuView: View {
                     }
                     .padding()
 
+                    // Search bar for products
                     TextField("Search Products...", text: $searchQuery)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
 
+                    // Button to update bill details
                     Button("Update Bill Details") {
                         updateBillDetails()
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+
+                    // Button to navigate to Bill Details
+                    Button("View Bill Details") {
+                        navigateToBillDetails = true
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
                     .foregroundColor(.white)
                     .cornerRadius(8)
 
@@ -93,8 +107,14 @@ struct MenuView: View {
                 fetchBillDetails()
             }
         }
+        .background(
+            NavigationLink(destination: BillDetailsView(viewModel: BillDetailsViewModel(itemId: billId)), isActive: $navigateToBillDetails) {
+                EmptyView()
+            }
+        )
     }
 
+    // Function to fetch bill details
     private func fetchBillDetails() {
         Firestore.firestore().collection("bills").document(billId).getDocument { document, error in
             if let document = document, document.exists {
@@ -107,6 +127,7 @@ struct MenuView: View {
         }
     }
 
+    // Function to update bill details
     private func updateBillDetails() {
         let billRef = Firestore.firestore().collection("bills").document(billId)
         billRef.updateData([

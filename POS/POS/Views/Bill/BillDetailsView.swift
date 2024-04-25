@@ -15,9 +15,7 @@ struct BillDetailsView: View {
         VStack {
             // Header
             HStack {
-                Image(systemName: "arrow.left")
-                Spacer()
-                Text("Table X")
+                Text("Table \(viewModel.item?.table)")
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
