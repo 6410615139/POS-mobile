@@ -15,20 +15,38 @@ struct NewPostView: View {
     
     var body: some View {
         VStack {
-            Text("New Item")
-                .font(.system(size: 32))
-                .bold()
-                .padding(.top, 50)
-            
-            Form {
-                TextField("Title", text: $viewModel.title)
-                    .textFieldStyle(DefaultTextFieldStyle())
-                TextField("Content", text: $viewModel.content)
-                    .textFieldStyle(DefaultTextFieldStyle())
-                POSButton(title: "Save", background: .pink) {
+            HStack(alignment: .bottom){
+                Text("Create Post")
+                    .font(.system(size: 32))
+                    .bold()
+                    .padding(.top, 50)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                
+                POSButton(title: "POST", background: Color(UIColor(hex: "#387440"))) {
                     viewModel.save()
                     newPostPresented = false
                 }
+                .frame(maxWidth: 80, maxHeight: 40)
+                .padding(.horizontal)
+            }
+            Form {
+                TextField("Title", text: $viewModel.title)
+                    .textFieldStyle(DefaultTextFieldStyle())
+                
+                ZStack(alignment: .topLeading) {
+                        if viewModel.content.isEmpty {
+                            Text("Content")
+                                .foregroundColor(Color(UIColor(hex: "#CBCBCB")))
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 8)
+                        }
+                        TextEditor(text: $viewModel.content)
+                            .frame(height: 500)
+                            .textFieldStyle(DefaultTextFieldStyle())
+                    }
+                    .animation(.default, value: viewModel.content.isEmpty)
+               
             }
             
         }

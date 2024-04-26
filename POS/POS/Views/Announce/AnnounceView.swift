@@ -13,55 +13,63 @@ struct AnnounceView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List(viewModel.posts, id: \.id) { post in
-                    NavigationLink(destination: PostView(viewModel: PostViewModel(postId: post.id))) {
-                        AnnounceItemView(item: post)
+            ZStack(alignment: .bottomTrailing){
+                VStack {
+                    List(viewModel.posts, id: \.id) { post in
+                        NavigationLink(destination: PostView(viewModel: PostViewModel(postId: post.id))) {
+                            AnnounceItemView(item: post)
+                        }
+                        .padding()
+                        .background(Color.white) // Use your actual background color
+                        .border(Color(UIColor(hex: "#ddedb6")), width: 7)
                     }
-                    .padding()
-                    .background(Color.white) // Use your actual background color
-                    .border(Color(UIColor(hex: "#ddedb6")), width: 7)
+                    .listStyle(PlainListStyle())
                 }
-                .listStyle(PlainListStyle())
-            }
-            .navigationTitle("Announcements")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if user.role.isOwner || user.role.isManager {
-                        HStack {
-                            Text("Manage Staff")
-                            Button(action: {
-                                viewModel.showingManageStaffView = true
-                            }) {
-                                Image(systemName: "gearshape")
-                            }
-                            
-                            Text("New Post")
-                            Button(action: {
-                                viewModel.showingnewPostView = true
-                            }) {
-                                Image(systemName: "plus")
+                .navigationTitle("Announcements")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        if user.role.isOwner || user.role.isManager {
+                            HStack {
+                                Text("Manage Staff")
+                                Button(action: {
+                                    viewModel.showingManageStaffView = true
+                                }) {
+                                    Image(systemName: "gearshape")
+                                        .foregroundColor(Color(UIColor(hex: "#387440")))
+                                }
                             }
                         }
                     }
                 }
-            }
-            .sheet(isPresented: $viewModel.showingnewPostView) {
-                NewPostView(newPostPresented: $viewModel.showingnewPostView)
-            }
-            .sheet(isPresented: $viewModel.showingManageStaffView) {
-                ManageView()
-            }
-            .onAppear {
-                Task {
-                    await viewModel.fetchPosts()
+                .sheet(isPresented: $viewModel.showingnewPostView) {
+                    NewPostView(newPostPresented: $viewModel.showingnewPostView)
                 }
-            }
-            .onChange(of: viewModel.showingnewPostView) {
-                if !viewModel.showingnewPostView {
+                .sheet(isPresented: $viewModel.showingManageStaffView) {
+                    ManageView()
+                }
+                .onAppear {
                     Task {
                         await viewModel.fetchPosts()
                     }
+                }
+                .onChange(of: viewModel.showingnewPostView) {
+                    if !viewModel.showingnewPostView {
+                        Task {
+                            await viewModel.fetchPosts()
+                        }
+                    }
+                }
+                VStack{
+                    Button(action: {
+                        viewModel.showingnewPostView = true
+                    }) {
+                        Image(systemName: "square.and.pencil.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 60)
+                            .foregroundColor(Color(UIColor(hex: "#387440")))
+                    }
+                    .padding()
                 }
             }
         }
