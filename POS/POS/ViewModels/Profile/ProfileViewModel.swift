@@ -24,7 +24,7 @@ class ProfileViewModel: ObservableObject {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         let db = Firestore.firestore()
         db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
-            guard let self = self, let snapshot = snapshot, let data = snapshot.data(), error == nil else {
+            guard let self = self, let snapshot = snapshot, let _ = snapshot.data(), error == nil else {
                 print("Error fetching user: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
@@ -83,12 +83,47 @@ class ProfileViewModel: ObservableObject {
     }
     
     func logOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print(error)
+        if let userId = Auth.auth().currentUser?.uid {
+            recordClockOut(userId: userId)
+            
+            do {
+                try Auth.auth().signOut()
+                print("User logged out successfully.")
+            } catch {
+                print("Logout error: \(error)")
+            }
         }
     }
+    
+    private func recordClockOut(userId: String) {
+        let db = Firestore.firestore()
+        let userTimeRecords = db.collection("users").document(userId).collection("timeRecord")
+        // We assume that there should be only one active session, thus we get the last clocked in record
+        userTimeRecords.order(by: "clockInTime", descending: true).limit(to: 1).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else if let querySnapshot = querySnapshot, !querySnapshot.documents.isEmpty {
+                let document = querySnapshot.documents.first
+                if document?.data()["clockOutTime"] == nil {
+                    // Document has no clockOutTime, proceed to update
+                    userTimeRecords.document(document!.documentID).updateData([
+                        "clockOutTime": Date().timeIntervalSince1970
+                    ], completion: { error in
+                        if let error = error {
+                            print("Error updating time record: \(error)")
+                        } else {
+                            print("Time record successfully updated for user \(userId)")
+                        }
+                    })
+                } else {
+                    print("Session already clocked out.")
+                }
+            } else {
+                print("No active sessions found to clock out.")
+            }
+        }
+    }
+    
     
     func deleteAccount(completion: @escaping (Bool, Error?) -> Void) {
         guard let user = Auth.auth().currentUser else {
