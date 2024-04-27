@@ -90,7 +90,7 @@ class DashboardViewModel: ObservableObject {
             }
         }
     }
-
+    
     private func findBestSeller(bills: [Bill]) {
         let group = DispatchGroup()
         var allOrders: [Order] = []
@@ -106,7 +106,7 @@ class DashboardViewModel: ObservableObject {
             }
         }
 
-        // Compute the best seller once all orders have been fetched
+        // Compute the best sellers once all orders have been fetched
         group.notify(queue: DispatchQueue.global(qos: .background)) {
             var productCounts = [String: (product: Product, count: Int)]()
 
@@ -120,12 +120,22 @@ class DashboardViewModel: ObservableObject {
                 }
             }
 
-            // Determine which product had the highest count
-            let bestSeller = productCounts.max { a, b in a.value.count < b.value.count }
+            // Sort products by their count in descending order and take the top three
+            let topThreeBestSellers = productCounts.sorted { $0.value.count > $1.value.count }.prefix(3).map { $0.value.product }
+
             DispatchQueue.main.async {
-                print("Best seller identified: \(bestSeller?.value.product.product_name ?? "None")")
-                self.bestSellerProduct = bestSeller?.value.product
+                if !topThreeBestSellers.isEmpty {
+                    print("Top three best sellers identified:")
+                    for product in topThreeBestSellers {
+                        print("\(product.product_name) with count \(productCounts[product.id]?.count ?? 0)")
+                    }
+                    // Optionally store only the first or all three best-selling products
+                    self.bestSellerProduct = topThreeBestSellers.first
+                } else {
+                    print("No best sellers identified.")
+                }
             }
         }
     }
+
 }
