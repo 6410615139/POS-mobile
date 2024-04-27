@@ -90,6 +90,9 @@
 		CE8E6B3F2B9F5DE900F19E3D /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */; };
 		CE8E6B412B9F5E1B00F19E3D /* NewPostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */; };
 		CE8E6B432B9F5E9200F19E3D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E6B422B9F5E9200F19E3D /* Post.swift */; };
+		CEBA4C5E2BDCE33B003B1CA5 /* OrderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C5D2BDCE33B003B1CA5 /* OrderRow.swift */; };
+		CEBA4C602BDCE362003B1CA5 /* OrderEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C5F2BDCE362003B1CA5 /* OrderEditRow.swift */; };
+		CEBA4C622BDCE39F003B1CA5 /* PaymentProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */; };
 		CEE920A72BBFD5E1005B51D6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEE920A62BBFD5E1005B51D6 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +155,9 @@
 		CE8E6B3E2B9F5DE900F19E3D /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
 		CE8E6B402B9F5E1B00F19E3D /* NewPostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostViewModel.swift; sourceTree = "<group>"; };
 		CE8E6B422B9F5E9200F19E3D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		CEBA4C5D2BDCE33B003B1CA5 /* OrderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRow.swift; sourceTree = "<group>"; };
+		CEBA4C5F2BDCE362003B1CA5 /* OrderEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEditRow.swift; sourceTree = "<group>"; };
+		CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProcessingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +246,9 @@
 				CE7F6FEB2BBFF43200F7B564 /* BillView.swift */,
 				CE6C334A2BC5204600D754A8 /* MenuView.swift */,
 				CE6C334E2BC5217B00D754A8 /* MenuItemView.swift */,
+				CEBA4C5D2BDCE33B003B1CA5 /* OrderRow.swift */,
+				CEBA4C5F2BDCE362003B1CA5 /* OrderEditRow.swift */,
+				CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */,
 			);
 			path = Bill;
 			sourceTree = "<group>";
@@ -565,6 +574,8 @@
 				CE7F6FE02BBFEDFA00F7B564 /* myButton.swift in Sources */,
 				C35ED6CE2BBC605E00E18856 /* StockView.swift in Sources */,
 				C35ED6D42BC0297000E18856 /* StaffHistory.swift in Sources */,
+				CEBA4C622BDCE39F003B1CA5 /* PaymentProcessingView.swift in Sources */,
+				CEBA4C5E2BDCE33B003B1CA5 /* OrderRow.swift in Sources */,
 				7BCD6E3B2BD4F89D000F6162 /* ManageView.swift in Sources */,
 				7BCD6E432BD4F994000F6162 /* UserManageViewModel.swift in Sources */,
 				CE6C33342BC5058500D754A8 /* PostViewModel.swift in Sources */,
@@ -581,6 +592,7 @@
 				CE7F6FEE2BBFF48C00F7B564 /* BillViewModel.swift in Sources */,
 				CE8E6B372B9F4EC500F19E3D /* Extensions.swift in Sources */,
 				C3B89BE32BC53F470073EF27 /* LikedUsersView.swift in Sources */,
+				CEBA4C602BDCE362003B1CA5 /* OrderEditRow.swift in Sources */,
 				C35ED6D02BBC63EB00E18856 /* EditProfileView.swift in Sources */,
 				CE7F6FD22BBFDA6400F7B564 /* Bill.swift in Sources */,
 				C3C2E2722BA2F0D900B3ED84 /* ProfileViewModel.swift in Sources */,
