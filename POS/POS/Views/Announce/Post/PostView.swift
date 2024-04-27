@@ -48,6 +48,7 @@ struct PostView: View {
                             Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
                                 .foregroundColor(viewModel.isLiked ? .red : .gray)
                             Text("Like")
+                                .foregroundColor(Color(UIColor(hex: "#387440")))
                         }
                     }
                     .buttonStyle(BorderlessButtonStyle())
@@ -71,7 +72,7 @@ struct PostView: View {
                     // Comments Section
                     Text("Comments")
                         .font(.headline)
-                        .padding(.vertical)
+                        .padding(.top)
                     
                     ForEach(post.comments, id: \.id) { comment in
                         VStack(alignment: .leading) {
@@ -79,18 +80,6 @@ struct PostView: View {
                         }
                         .padding(.bottom)
                     }
-                    
-                    // Comment Input Field
-                    TextField("Add a comment...", text: $newCommentText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.bottom)
-                    
-                    // Submit Button
-                    Button("Submit") {
-                        viewModel.comment(content: newCommentText)
-                        newCommentText = ""
-                    }
-                    .buttonStyle(.bordered)
                     
                 }
                 .padding()
@@ -105,6 +94,26 @@ struct PostView: View {
             })
         }
         .navigationBarTitle("Post Details", displayMode: .inline)
+        // Comment Input Field
+        HStack(alignment: .center){
+            TextField("Add a comment...", text: $newCommentText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            // Submit Button
+            if (!newCommentText.isEmpty){
+                Button{
+                    viewModel.comment(content: newCommentText)
+                    newCommentText = ""
+                } label: {
+                    Image(systemName: "arrow.up.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20)
+                        .foregroundColor(Color(UIColor(hex: "#387440")))
+                }
+            }
+        }
+        .padding()
     }
     
     private var configButton: some View {
@@ -113,6 +122,7 @@ struct PostView: View {
         }) {
             Image(systemName: "ellipsis.circle")
                 .imageScale(.large)
+                .foregroundColor(Color(UIColor(hex: "#387440")))
         }
         .actionSheet(isPresented: $showConfigMenu) {
             ActionSheet(
