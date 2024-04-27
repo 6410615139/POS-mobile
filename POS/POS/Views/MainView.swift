@@ -33,7 +33,7 @@ struct MainView: View {
             case 2:
                 BillView()
             case 3:
-                StockView()
+                StockView(user: user)
             case 4:
                 ProfileView()
             default:

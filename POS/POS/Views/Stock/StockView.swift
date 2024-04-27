@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseFirestoreSwift
 
 struct StockView: View {
+    var user: User
     @State private var shouldNavigate = false
     @StateObject var viewModel: StockViewModel
     @State private var searchQuery = ""
@@ -20,8 +21,9 @@ struct StockView: View {
     
     private let itemSize: CGSize = CGSize(width: 150, height: 150)
     
-    init() {
+    init(user: User) {
         self._viewModel = StateObject(wrappedValue: StockViewModel())
+        self.user = user
     }
     
     var filteredItems: [Product] {
@@ -66,11 +68,13 @@ struct StockView: View {
             }
             .navigationTitle("Stock")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingNewProductSheet = true
-                    }) {
-                        Image(systemName: "plus")
+                if user.role.isOwner || user.role.isManager {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showingNewProductSheet = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
