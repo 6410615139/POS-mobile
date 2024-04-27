@@ -23,7 +23,7 @@ class BillViewModel: ObservableObject {
     func create_bill() {
         let orders = [Order]()
         let newId = UUID().uuidString
-        let new_bill = Bill(id: newId, table: "0", createDate: Date().timeIntervalSince1970, orders: orders, owner: "-")
+        let new_bill = Bill(id: newId, table: "0", createDate: Date().timeIntervalSince1970, orders: orders, owner: "-", status: false)
         let db = Firestore.firestore()
         db.collection("bills")
             .document(String(new_bill.id))

@@ -13,6 +13,7 @@ struct Bill: Codable, Identifiable {
     let createDate: TimeInterval
     var orders: [Order]
     let owner: String
+    var status: Bool
     
     mutating func set_table(_ table: String) {
         self.table = table

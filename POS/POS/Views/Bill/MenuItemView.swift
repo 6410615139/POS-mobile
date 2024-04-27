@@ -71,12 +71,6 @@ struct MenuItemView: View {
                     .background(Color.blue)
                     .cornerRadius(10)
             }
-//            .background(
-//                NavigationLink(destination: BillDetailsView(itemId: viewModel.billId), isActive: $navigateToBillDetails) {
-//                    EmptyView()
-//                }
-//                .hidden()
-//            )
         }
         .padding()
         .background(Color(UIColor.systemBackground))

@@ -28,6 +28,9 @@ struct OrderEditRow: View {
             HStack {
                 Button(action: {
                     if amount > 1 { amount -= 1 }
+                    let newOrder = Order(id: order.id, amount: amount, product: order.product)
+                    onUpdate(newOrder)
+                    viewModel.updateOrder(order: newOrder, in: viewModel.itemId)
                     onUpdate(Order(id: order.id, amount: amount, product: order.product))
                 }) {
                     Image(systemName: "minus.circle")
@@ -36,7 +39,9 @@ struct OrderEditRow: View {
                     .font(.subheadline)
                 Button(action: {
                     amount += 1
-                    onUpdate(Order(id: order.id, amount: amount, product: order.product))
+                    let newOrder = Order(id: order.id, amount: amount, product: order.product)
+                    onUpdate(newOrder)
+                    viewModel.updateOrder(order: newOrder, in: viewModel.itemId)
                 }) {
                     Image(systemName: "plus.circle")
                 }

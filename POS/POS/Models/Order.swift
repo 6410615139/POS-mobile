@@ -23,4 +23,13 @@ struct Order: Codable, Identifiable, Hashable {
     static func ==(lhs: Order, rhs: Order) -> Bool {
         return lhs.id == rhs.id && lhs.amount == rhs.amount && lhs.product == rhs.product
     }
+    
+//    func toDictionary() -> [String: Any] {
+//        return [
+//            "id": id,
+//            "amount": amount,
+//            "product": product.toDictionary()  // Convert nested Product to dictionary
+//        ]
+//    }
+    
 }

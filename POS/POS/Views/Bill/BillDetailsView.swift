@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 struct BillDetailsView: View {
     @StateObject var viewModel: BillDetailsViewModel
     @State private var isEditMode = false // State to toggle edit mode
-    @State private var showingPaymentSheet = false // State to control the visibility of the payment sheet
+    @State private var showingPaymentSheet = false
 
     var body: some View {
         VStack {
@@ -66,13 +66,11 @@ struct BillDetailsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     isEditMode.toggle()
-                    if !isEditMode {
-                        viewModel.updateBillDetails()  // Save bill when exiting edit mode
-                    }
                 }) {
                     Image(systemName: isEditMode ? "checkmark.circle" : "gear")
                 }
             }
         }
+        .onAppear(perform: viewModel.fetchOrders)
     }
 }

@@ -35,24 +35,30 @@ class BillDetailsViewModel: ObservableObject {
                     table: data["table"] as? String ?? "",
                     createDate: data["createDate"] as? TimeInterval ?? 0,
                     orders: data["orders"] as? [Order] ?? [],
-                    owner: data["owner"] as? String ?? ""
+                    owner: data["owner"] as? String ?? "", 
+                    status: data["status"] as? Bool ?? false
                 )
                 self?.fetchOrders()  // Ensure orders are updated after bill fetch
             }
         }
     }
 
-    func updateBillDetails() {
-        guard let item = item else { return }
-        db.collection("bills").document(itemId).updateData([
-            "owner": item.owner,
-            "table": item.table,
-            "createDate": item.createDate
-        ]) { error in
+    func updateOrder(order: Order, in billId: String) {
+        let db = Firestore.firestore()
+        let orderRef = db.collection("bills").document(billId).collection("orders").document(order.id)
+
+        // Prepare the data dictionary to update only the 'amount' field
+        let updateData = ["amount": order.amount]
+
+        orderRef.updateData(updateData) { error in
             if let error = error {
-                print("Error updating bill: \(error)")
+                print("Error updating order: \(error.localizedDescription)")
+            } else {
+                print("Order successfully updated")
             }
         }
+        // Optionally, fetch orders again to refresh the data
+        self.fetchOrders()
     }
 
     func deleteOrder(orderId: String) {
