@@ -27,7 +27,7 @@ struct NewPostView: View {
                     viewModel.save()
                     newPostPresented = false
                 }
-                .frame(maxWidth: 80, maxHeight: 40)
+                .frame(maxWidth: 80, maxHeight: 45)
                 .padding(.horizontal)
             }
             Form {
@@ -35,15 +35,15 @@ struct NewPostView: View {
                     .textFieldStyle(DefaultTextFieldStyle())
                 
                 ZStack(alignment: .topLeading) {
-                        if viewModel.content.isEmpty {
-                            Text("Content")
-                                .foregroundColor(Color(UIColor(hex: "#CBCBCB")))
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 8)
-                        }
-                        TextEditor(text: $viewModel.content)
-                            .frame(height: 500)
-                            .textFieldStyle(DefaultTextFieldStyle())
+                    if viewModel.content.isEmpty {
+                        Text("Content")
+                            .foregroundColor(Color(UIColor(hex: "#CBCBCB")))
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 8)
+                    }
+                    TextEditor(text: $viewModel.content)
+                        .frame(height: 500)
+                        .textFieldStyle(DefaultTextFieldStyle())
                     }
                     .animation(.default, value: viewModel.content.isEmpty)
                

@@ -18,15 +18,21 @@ struct CommentView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
-            Text(viewModel.authorName.isEmpty ? "Loading..." : viewModel.authorName)
-                .font(.caption)
-                .bold()
-            Text("Comment on \(viewModel.formattedDate(for: comment.timestamp))")
-                .font(.caption)
-                .foregroundColor(.gray)
-            Text(comment.content)
-                .font(.body)
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 15)
+                .foregroundColor(.white)
+                .shadow(color: Color(UIColor(hex: "#ddedb6")), radius: 2, x: 0, y: 3)
+            VStack(alignment: .leading) {
+                Text(viewModel.authorName.isEmpty ? "Loading..." : viewModel.authorName)
+                    .font(.caption)
+                    .bold()
+                Text("Comment on \(viewModel.formattedDate(for: comment.timestamp))")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Text(comment.content)
+                    .font(.body)
+            }.padding()
+            
         }
     }
 }
