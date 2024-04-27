@@ -10,15 +10,21 @@ import SwiftUI
 struct BillItemView: View {
     @StateObject var viewModel = BillItemViewModel()
     let item: Bill
-    @State private var isNavigationActive = false  // State to control navigation
+    @State private var isNavigateToMenuView = false
+    @State private var isNavigateToBillDetailView = false
 
     var body: some View {
         HStack {
-            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigationActive) {
+            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigateToMenuView) {
                 EmptyView()
             }
             .frame(width: 0)
             .opacity(0)
+            
+            NavigationLink(destination: BillDetailsView(viewModel: BillDetailsViewModel(itemId: item.id)), isActive: $isNavigateToBillDetailView) {
+               EmptyView()
+           }
+            
 
             // Tappable area for navigation
             VStack(alignment: .leading) {
@@ -30,16 +36,20 @@ struct BillItemView: View {
                     .bold()
                 Text("Create at: \(Date(timeIntervalSince1970: item.createDate).formatted(date: .abbreviated, time: .shortened))")
                     .font(.footnote)
-                    .foregroundColor(Color(UIColor(hex: "#ddedb6")))
+                    .foregroundColor(!item.status ? Color(UIColor(hex: "#ddedb6")) : .gray)
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                isNavigationActive = true
+                if item.status {
+                    isNavigateToBillDetailView = true
+                } else {
+                    isNavigateToMenuView = true
+                }
             }
             .background(NavigationLink("", destination: MenuView(billId: item.id)).hidden())
             Spacer()
         }
-        .foregroundColor(.white)
+        .foregroundColor(!item.status ? .white : .black)
         .padding(.horizontal,5)
     }
 }

@@ -42,19 +42,21 @@ struct BillDetailsView: View {
                         .font(.title3)
                 }
                 .padding()
-
-                Button(action: {
-                    showingPaymentSheet = true
-                }) {
-                    Text("PAYMENT")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(10)
+                
+                if let item = viewModel.item, !item.status {
+                    Button(action: {
+                        showingPaymentSheet = true
+                    }) {
+                        Text("PAYMENT")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.green)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
         .sheet(isPresented: $showingPaymentSheet) {
@@ -64,10 +66,12 @@ struct BillDetailsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    isEditMode.toggle()
-                }) {
-                    Image(systemName: isEditMode ? "checkmark.circle" : "gear")
+                if let item = viewModel.item, !item.status {
+                    Button(action: {
+                        isEditMode.toggle()
+                    }) {
+                        Image(systemName: isEditMode ? "checkmark.circle" : "gear")
+                    }
                 }
             }
         }

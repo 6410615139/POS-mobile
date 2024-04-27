@@ -95,6 +95,7 @@
 		CEBA4C622BDCE39F003B1CA5 /* PaymentProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */; };
 		CEBA4C642BDCF416003B1CA5 /* ProductEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C632BDCF416003B1CA5 /* ProductEditRow.swift */; };
 		CEBA4C662BDCF586003B1CA5 /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C652BDCF586003B1CA5 /* ProductRow.swift */; };
+		CEBA4C6E2BDD545E003B1CA5 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C6D2BDD545E003B1CA5 /* DashboardViewModel.swift */; };
 		CEE920A72BBFD5E1005B51D6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEE920A62BBFD5E1005B51D6 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 		CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProcessingView.swift; sourceTree = "<group>"; };
 		CEBA4C632BDCF416003B1CA5 /* ProductEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditRow.swift; sourceTree = "<group>"; };
 		CEBA4C652BDCF586003B1CA5 /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
+		CEBA4C6D2BDD545E003B1CA5 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +436,7 @@
 		CE8E6B032B9F475E00F19E3D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CEBA4C6C2BDD544E003B1CA5 /* Dashboard */,
 				CE6C33482BC507DA00D754A8 /* Bill */,
 				CE6C33522BC53DBA00D754A8 /* Stock */,
 				CE6C33492BC507F200D754A8 /* Announce */,
@@ -453,6 +456,14 @@
 				7BCE977F2BC0FD8800EBB99B /* GoogleService-Info.plist */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		CEBA4C6C2BDD544E003B1CA5 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				CEBA4C6D2BDD545E003B1CA5 /* DashboardViewModel.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -609,6 +620,7 @@
 				C35ED6D62BC02E4100E18856 /* DataTableModel.swift in Sources */,
 				CE8E6B412B9F5E1B00F19E3D /* NewPostViewModel.swift in Sources */,
 				CE6C333E2BC505CC00D754A8 /* AnnounceItemView.swift in Sources */,
+				CEBA4C6E2BDD545E003B1CA5 /* DashboardViewModel.swift in Sources */,
 				CE6C334F2BC5217B00D754A8 /* MenuItemView.swift in Sources */,
 				CE6C33382BC505AC00D754A8 /* AnnounceViewModel.swift in Sources */,
 				CE6C335E2BC545F700D754A8 /* NewProductViewModel.swift in Sources */,

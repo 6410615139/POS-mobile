@@ -16,6 +16,7 @@ struct BillView: View {
     @FirestoreQuery(collectionPath: "bills") var allItems: [Bill]
     @State private var showDeleteConfirmation = false
     @State private var itemToDelete: Bill? = nil
+    @State private var isPaid = false
     
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 10),
@@ -41,10 +42,6 @@ struct BillView: View {
     var body: some View {
         NavigationView {
             VStack {
-//                TextField("Search bills...", text: $searchQuery)
-//                    .frame(width: 200, height: 30)
-//                    .border(Color(UIColor(hex: "#ddedb6")), width: 3)
-                
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -70,8 +67,17 @@ struct BillView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 3)
                     )
-                    .frame(width: 270, height: 30)
+                    .frame(width: 250, height: 30)
+                    
                     Spacer()
+                    
+                    Button {
+                        isPaid.toggle()
+                    } label: {
+                        Text(isPaid ? "Paid": "Unpaid")
+                        Image(systemName: isPaid ? "dollarsign.circle.fill": "dollarsign.circle")
+
+                    }
                 }
                 .padding([.horizontal, .top])
                     
@@ -99,25 +105,28 @@ struct BillView: View {
                         }
                         
                         ForEach(filteredItems, id: \.id) { item in
-                            BillItemView(item: item)
-                                .frame(width: itemSize.width, height: itemSize.height)
-                                .background(Color(UIColor(hex: "#387440")))
-                                .overlay(
-                                    VStack {
-                                        if itemToDelete?.id == item.id {
-                                            Button("Delete") {
-                                                showDeleteConfirmation = true
+                            if (isPaid == item.status) {
+                                BillItemView(item: item)
+                                    .padding(.horizontal, 5)
+                                    .frame(width: itemSize.width, height: itemSize.height)
+                                    .background(!item.status ? Color(UIColor(hex: "#387440")) : Color(UIColor(hex: "#CBCBCB")))
+                                    .overlay(
+                                        VStack {
+                                            if itemToDelete?.id == item.id {
+                                                Button("Delete") {
+                                                    showDeleteConfirmation = true
+                                                }
+                                                .padding()
+                                                .background(Color.red)
+                                                .foregroundColor(.white)
+                                                .cornerRadius(10)
                                             }
-                                            .padding()
-                                            .background(Color.red)
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
                                         }
+                                    )
+                                    .onLongPressGesture {
+                                        itemToDelete = item
                                     }
-                                )
-                                .onLongPressGesture {
-                                    itemToDelete = item
-                                }
+                            }
                         }
                         // Hidden NavigationLink
                         NavigationLink(destination: MenuView(billId: viewModel.newBillId), isActive: $shouldNavigate) {

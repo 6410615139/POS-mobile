@@ -19,10 +19,6 @@ struct MenuView: View {
     @State private var searchQuery = ""  // For product search
     @State private var navigateToBillDetails = false  // State for navigation
     
-    @State private var initialTable: String = ""
-    @State private var initialOwner: String = ""
-    @State private var isUpdate = false // State to toggle edit mode
-
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
         GridItem(.flexible(), spacing: 20)
@@ -59,9 +55,6 @@ struct MenuView: View {
                                     .foregroundColor(Color(UIColor(hex: "#387440")))
                                 TextField("Table Number", text: $table)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .onChange(of: table) { newValue in
-                                        isUpdate = newValue != initialTable
-                                    }
                             }
                             VStack(alignment: .leading) {
                                 Text("Owner")
@@ -69,23 +62,19 @@ struct MenuView: View {
                                     .foregroundColor(Color(UIColor(hex: "#387440")))
                                 TextField("Owner's Name", text: $owner)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .onChange(of: owner) { newValue in
-                                        isUpdate = newValue != initialOwner
-                                    }
                             }
                             
                             // Button to update bill details
                             Button{
                                 updateBillDetails()
-                                isUpdate.toggle()
                             } label: {
-                                Image(systemName: isUpdate ? "circle" : "checkmark.circle")
+                                Text("UPDATE")
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .background(Color(UIColor(hex: "#387440")))
+                                    .cornerRadius(8)
                             }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .background(Color(UIColor(hex: "#387440")))
-                            .cornerRadius(8)
+                            
                             
                         }
                         .padding(.horizontal)
@@ -148,9 +137,6 @@ struct MenuView: View {
 
     // Function to fetch bill details
     private func fetchBillDetails() {
-        self.initialTable = self.table
-        self.initialOwner = self.owner
-        
         Firestore.firestore().collection("bills").document(billId).getDocument { document, error in
             if let document = document, document.exists {
                 let data = document.data()
@@ -164,9 +150,6 @@ struct MenuView: View {
 
     // Function to update bill details
     private func updateBillDetails() {
-        self.initialTable = self.table
-        self.initialOwner = self.owner
-        
         let billRef = Firestore.firestore().collection("bills").document(billId)
         billRef.updateData([
             "table": table,

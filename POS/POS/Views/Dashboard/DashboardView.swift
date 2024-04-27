@@ -6,31 +6,33 @@
 //
 
 import SwiftUI
+import FirebaseFirestoreSwift
 
 struct DashboardView: View {
+    @StateObject var viewModel = DashboardViewModel()
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
                 // Sales Section
-                DashboardSectionView(title: "Sales", iconName: "dollarsign.circle", color: .green, content: "9,999$")
+                DashboardSectionView(title: "Sales", iconName: "dollarsign.circle", color: .green, content: "\(viewModel.totalSales)$")
                 
                 // Best Seller Section
-                DashboardSectionView(title: "Best Seller", iconName: "star.circle", color: .blue, content: "Pizzaa")
-                
-                // Income/Expenses Section
-                DashboardSectionView(title: "Income/Expenses", iconName: "arrow.triangle.2.circlepath", color: .orange, content: "Profit 50$")
+                if let bestSeller = viewModel.bestSellerProduct {
+                    DashboardSectionView(title: "Best Seller", iconName: "star.circle", color: .blue, content: bestSeller.product_name)
+                }
             }
             .padding()
-        }
-    }
+        }    }
 }
+
 
 struct DashboardSectionView: View {
     var title: String
     var iconName: String
     var color: Color
     var content: String
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -45,9 +47,9 @@ struct DashboardSectionView: View {
             .padding()
             .background(color.opacity(0.2))
             .cornerRadius(10)
-            
+
             Text(content)
-            
+
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -55,8 +57,4 @@ struct DashboardSectionView: View {
         .cornerRadius(10)
         .shadow(color: color.opacity(0.3), radius: 10, x: 0, y: 5)
     }
-}
-
-#Preview {
-    DashboardView()
 }
