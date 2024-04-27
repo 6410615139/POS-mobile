@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct ProductRow: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    var product: Product
 
-#Preview {
-    ProductRow()
+    var body: some View {
+        HStack {
+            Text(product.product_name)
+                .font(.headline)  // Prominent font for the product name
+            Spacer()  // Pushes the text to the left and number to the right
+            Text("x\(product.price)")
+                .font(.subheadline)  // Slightly smaller font for the amount
+                .foregroundColor(.secondary)
+            Text("x\(product.amount)")  // Displays the amount of the product ordered
+                .font(.subheadline)  // Slightly smaller font for the amount
+                .foregroundColor(.secondary)  // Greyed out color for less emphasis
+        }
+        .padding()  // Padding around the HStack content
+        .background(Color(UIColor.secondarySystemBackground))  // Light grey background to differentiate rows
+        .cornerRadius(8)  // Rounded corners for a smooth design
+    }
 }

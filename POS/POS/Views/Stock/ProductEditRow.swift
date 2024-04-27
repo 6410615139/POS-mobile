@@ -8,11 +8,49 @@
 import SwiftUI
 
 struct ProductEditRow: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    var product: Product
+    var viewModel: StockViewModel
+    var onUpdate: (Product) -> Void
+    @State private var amount: Int
+    
+    init(product: Product, viewModel: StockViewModel, onUpdate: @escaping (Product) -> Void) {
+        self.product = product
+        self.viewModel = viewModel
+        self._amount = State(initialValue: product.amount)
+        self.onUpdate = onUpdate
     }
-}
 
-#Preview {
-    ProductEditRow()
+    var body: some View {
+        HStack {
+            Text(product.product_name)
+                .font(.headline)
+            Spacer()
+            HStack {
+                Button(action: {
+                    if amount > 1 { amount -= 1 }
+                    onUpdate(Product(id: product.id, product_name: product.product_name, price: product.price, amount: amount))
+                }) {
+                    Image(systemName: "minus.circle")
+                }
+                Text("x\(amount)")
+                    .font(.subheadline)
+                Button(action: {
+                    amount += 1
+                    onUpdate(Product(id: product.id, product_name: product.product_name, price: product.price, amount: amount))
+                }) {
+                    Image(systemName: "plus.circle")
+                }
+                Button(action: {
+//                    viewModel.deleteProduct(productId: product.id)
+                }) {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                }
+            }
+            .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(Color(UIColor.secondarySystemBackground))
+        .cornerRadius(8)
+    }
 }

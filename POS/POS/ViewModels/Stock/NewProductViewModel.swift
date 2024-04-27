@@ -12,9 +12,6 @@ import FirebaseFirestore
 class NewProductViewModel: ObservableObject {
     @Published var product_name = ""
     @Published var price: Double = 0.0
-    @Published var details = ""
-    @Published var image_path = ""
-    @Published var catagory = ""
     @Published var amount: Int = 0
     
     func save() {
@@ -24,7 +21,7 @@ class NewProductViewModel: ObservableObject {
         }
 
         let newId = UUID().uuidString
-        let new_product = Product(id: newId, product_name: product_name, details: details, price: price, image_path: image_path, catagory: catagory, amount: amount)
+        let new_product = Product(id: newId, product_name: product_name, price: price, amount: amount)
         let db = Firestore.firestore()
         
         db.collection("products")

@@ -93,6 +93,8 @@
 		CEBA4C5E2BDCE33B003B1CA5 /* OrderRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C5D2BDCE33B003B1CA5 /* OrderRow.swift */; };
 		CEBA4C602BDCE362003B1CA5 /* OrderEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C5F2BDCE362003B1CA5 /* OrderEditRow.swift */; };
 		CEBA4C622BDCE39F003B1CA5 /* PaymentProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */; };
+		CEBA4C642BDCF416003B1CA5 /* ProductEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C632BDCF416003B1CA5 /* ProductEditRow.swift */; };
+		CEBA4C662BDCF586003B1CA5 /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBA4C652BDCF586003B1CA5 /* ProductRow.swift */; };
 		CEE920A72BBFD5E1005B51D6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEE920A62BBFD5E1005B51D6 /* FirebaseFirestoreSwift */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +160,8 @@
 		CEBA4C5D2BDCE33B003B1CA5 /* OrderRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderRow.swift; sourceTree = "<group>"; };
 		CEBA4C5F2BDCE362003B1CA5 /* OrderEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderEditRow.swift; sourceTree = "<group>"; };
 		CEBA4C612BDCE39F003B1CA5 /* PaymentProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProcessingView.swift; sourceTree = "<group>"; };
+		CEBA4C632BDCF416003B1CA5 /* ProductEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditRow.swift; sourceTree = "<group>"; };
+		CEBA4C652BDCF586003B1CA5 /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +304,8 @@
 				C35ED6CD2BBC605E00E18856 /* StockView.swift */,
 				CE6C33572BC53E9800D754A8 /* StockItemView.swift */,
 				CE6C335B2BC545A600D754A8 /* NewProductView.swift */,
+				CEBA4C632BDCF416003B1CA5 /* ProductEditRow.swift */,
+				CEBA4C652BDCF586003B1CA5 /* ProductRow.swift */,
 			);
 			path = Stock;
 			sourceTree = "<group>";
@@ -564,8 +570,10 @@
 				CE8E6B272B9F4D3F00F19E3D /* HeaderView.swift in Sources */,
 				CE6C334B2BC5204600D754A8 /* MenuView.swift in Sources */,
 				CE7F6FD42BBFDAF300F7B564 /* Product.swift in Sources */,
+				CEBA4C662BDCF586003B1CA5 /* ProductRow.swift in Sources */,
 				CE6C335A2BC53EA800D754A8 /* StockItemViewModel.swift in Sources */,
 				CE6C33582BC53E9800D754A8 /* StockItemView.swift in Sources */,
+				CEBA4C642BDCF416003B1CA5 /* ProductEditRow.swift in Sources */,
 				7BCD6E402BD4F91C000F6162 /* UserManageView.swift in Sources */,
 				CE7F6FE82BBFF19F00F7B564 /* BillItemView.swift in Sources */,
 				CE8E6B072B9F4A6300F19E3D /* MainView.swift in Sources */,

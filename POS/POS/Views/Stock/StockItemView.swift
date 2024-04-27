@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct StockItemView: View {
     @StateObject var viewModel: StockItemViewModel
     @State private var isNavigationActive = false  // State to control navigation
@@ -19,11 +17,6 @@ struct StockItemView: View {
     
     var body: some View {
         HStack {
-//            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigationActive) {
-//                EmptyView()
-//            }
-//            .frame(width: 0)
-//            .opacity(0)
 
             // Tappable area for navigation
             VStack(alignment: .leading) {
