@@ -18,11 +18,11 @@ struct BillView: View {
     @State private var itemToDelete: Bill? = nil
     
     private var columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible(), spacing: 20)
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10)
     ]
     
-    private let itemSize: CGSize = CGSize(width: 150, height: 150)
+    private let itemSize: CGSize = CGSize(width: 170, height: 140)
 
     init() {
         self._viewModel = StateObject(wrappedValue: BillViewModel())
@@ -41,9 +41,40 @@ struct BillView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Search bills...", text: $searchQuery)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+//                TextField("Search bills...", text: $searchQuery)
+//                    .frame(width: 200, height: 30)
+//                    .border(Color(UIColor(hex: "#ddedb6")), width: 3)
+                
+                HStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                            .padding(.leading, 2)
+                        
+                        TextField("SEARCH", text: $searchQuery)
+                        
+                        if !searchQuery.isEmpty {
+                            Button(action: {
+                                searchQuery = ""
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                                    .padding(.trailing, 3)
+                            }
+                        }
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .background(Color.white)
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 3)
+                    )
+                    .frame(width: 270, height: 30)
+                    Spacer()
+                }
+                .padding([.horizontal, .top])
+                    
                 
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
@@ -51,23 +82,26 @@ struct BillView: View {
                             viewModel.create_bill()
                             shouldNavigate = true  // Set to true to navigate after bill creation
                         }) {
-                            VStack {
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: 80)
                                 Image(systemName: "plus.circle.fill")
                                     .resizable()
-                                    .scaledToFit()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 80)
                                     .padding(20)
+                                    .foregroundColor(Color(UIColor(hex: "#387440")))
                             }
                             .frame(width: itemSize.width, height: itemSize.height)
-                            .background(Color(UIColor.systemGray6))
+                            .background(Color(UIColor(hex: "#9ED461")))
                             .cornerRadius(10)
                         }
                         
                         ForEach(filteredItems, id: \.id) { item in
                             BillItemView(item: item)
                                 .frame(width: itemSize.width, height: itemSize.height)
-                                .background(Color(UIColor.systemBackground))
-                                .cornerRadius(10)
-                                .shadow(radius: 2)
+                                .background(Color(UIColor(hex: "#387440")))
                                 .overlay(
                                     VStack {
                                         if itemToDelete?.id == item.id {
@@ -91,7 +125,7 @@ struct BillView: View {
                         }
                     }
                 }
-                .padding()
+                .padding([.horizontal, .top])
             }
             .navigationTitle("Bills")
             .alert(isPresented: $showDeleteConfirmation) {
