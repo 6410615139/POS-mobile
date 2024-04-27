@@ -16,6 +16,7 @@ struct StockView: View {
     @State private var showDeleteConfirmation = false
     @State private var itemToDelete: Product? = nil
     @State private var showingNewProductSheet = false  // State to control the visibility of the new product sheet
+    @State private var isEditMode = false  // State to toggle edit mode
     
     private let itemSize: CGSize = CGSize(width: 150, height: 150)
     
@@ -42,10 +43,26 @@ struct StockView: View {
                 
                 ScrollView {
                     ForEach(filteredItems, id: \.id) { item in
-                        ProductRow(product: item)
+                        if isEditMode {
+                            ProductEditRow(product: item, viewModel: viewModel, onUpdate: { updatedProduct in
+                                if let index = viewModel.products.firstIndex(where: { $0.id == updatedProduct.id }) {
+                                    viewModel.products[index] = updatedProduct
+                                }
+                            })
+                        } else {
+                            ProductRow(product: item)
+                        }
                     }
                 }
                 .padding()
+                .confirmationDialog("Are you sure you want to delete this item?", isPresented: $showDeleteConfirmation) {
+                    Button("Delete", role: .destructive) {
+                        if let deleteItem = itemToDelete {
+//                            viewModel.deleteProduct(deleteItem)
+                        }
+                    }
+                    Button("Cancel", role: .cancel) {}
+                }
             }
             .navigationTitle("Stock")
             .toolbar {
@@ -54,6 +71,13 @@ struct StockView: View {
                         showingNewProductSheet = true
                     }) {
                         Image(systemName: "plus")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        isEditMode.toggle()
+                    }) {
+                        Image(systemName: isEditMode ? "checkmark.circle" : "gear")
                     }
                 }
             }
