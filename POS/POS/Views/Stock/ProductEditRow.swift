@@ -41,7 +41,7 @@ struct ProductEditRow: View {
                     Image(systemName: "plus.circle")
                 }
                 Button(action: {
-//                    viewModel.deleteProduct(productId: product.id)
+                    viewModel.deleteProduct(productId: product.id)
                 }) {
                     Image(systemName: "trash")
                         .foregroundColor(.red)

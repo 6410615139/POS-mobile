@@ -13,6 +13,8 @@ class StockViewModel: ObservableObject {
     @Published var showingnewProductView = false
     @Published var products: [Product] = []
     
+    private var db = Firestore.firestore()
+    
     func fetchPosts() async {
         let db = Firestore.firestore()
         do {
@@ -43,6 +45,16 @@ class StockViewModel: ObservableObject {
             } else {
                 print("User not found or error: \(error?.localizedDescription ?? "Unknown error")")
                 completion(nil)
+            }
+        }
+    }
+    
+    func deleteProduct(productId: String) {
+        db.collection("products").document(productId).delete { error in
+            if let error = error {
+                print("Error deleting order: \(error)")
+            } else {
+                self.products.removeAll(where: { $0.id == productId })
             }
         }
     }
