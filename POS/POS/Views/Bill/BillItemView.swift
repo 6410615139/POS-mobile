@@ -10,15 +10,21 @@ import SwiftUI
 struct BillItemView: View {
     @StateObject var viewModel = BillItemViewModel()
     let item: Bill
-    @State private var isNavigationActive = false  // State to control navigation
+    @State private var isNavigateToMenuView = false
+    @State private var isNavigateToBillDetailView = false
 
     var body: some View {
         HStack {
-            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigationActive) {
+            NavigationLink(destination: MenuView(billId: item.id), isActive: $isNavigateToMenuView) {
                 EmptyView()
             }
             .frame(width: 0)
             .opacity(0)
+            
+            NavigationLink(destination: BillDetailsView(viewModel: BillDetailsViewModel(itemId: item.id)), isActive: $isNavigateToBillDetailView) {
+               EmptyView()
+           }
+            
 
             // Tappable area for navigation
             VStack(alignment: .leading) {
@@ -34,7 +40,11 @@ struct BillItemView: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                isNavigationActive = true
+                if item.status {
+                    isNavigateToBillDetailView = true
+                } else {
+                    isNavigateToMenuView = true
+                }
             }
             .background(NavigationLink("", destination: MenuView(billId: item.id)).hidden())
             Spacer()
