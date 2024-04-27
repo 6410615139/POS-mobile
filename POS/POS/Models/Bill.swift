@@ -18,5 +18,13 @@ struct Bill: Codable, Identifiable {
     mutating func set_table(_ table: String) {
         self.table = table
     }
+    
+    func total() -> Double {
+        var result: Double = 0.0
+        for order in orders {
+            result += (Double(order.amount) * order.product.price)
+        }
+        return result
+    }
 }
 
