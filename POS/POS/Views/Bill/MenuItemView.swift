@@ -19,7 +19,7 @@ struct MenuItemView: View {
     }
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack{
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.product_name)
@@ -32,7 +32,7 @@ struct MenuItemView: View {
                 Spacer()
             }
             
-            HStack(spacing: 20) {
+            HStack{
                 // Decrease quantity button
                 Button(action: {
                     if quantity > 1 {

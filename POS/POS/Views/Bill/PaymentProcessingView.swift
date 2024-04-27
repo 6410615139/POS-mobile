@@ -21,10 +21,13 @@ struct PaymentProcessingView: View {
                 // This sets the bill status to true indicating it has been paid
                 viewModel.updateBillStatus(value: true)
             } label: {
-                Text("Mark as Paid")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color(UIColor(hex: "#387440")))
+                HStack{
+                    Image(systemName: "checkmark.circle")
+                    Text("Mark as Paid")
+                }
+                .padding()
+                .foregroundColor(.white)
+                .background(Color(UIColor(hex: "#387440")))
             }
             .padding()
             

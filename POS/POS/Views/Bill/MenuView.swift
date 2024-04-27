@@ -20,11 +20,11 @@ struct MenuView: View {
     @State private var navigateToBillDetails = false  // State for navigation
     
     private var columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible(), spacing: 20)
+        GridItem(.flexible(), spacing: 7),
+        GridItem(.flexible(), spacing: 7)
     ]
 
-    private let itemSize: CGSize = CGSize(width: 150, height: 150)
+    private let itemSize: CGSize = CGSize(width: 170, height: 170)
 
     init(billId: String) {
         self._viewModel = StateObject(wrappedValue: MenuViewModel())
@@ -49,19 +49,21 @@ struct MenuView: View {
                     // Input fields for table and owner
                     VStack{
                         HStack {
-                            VStack(alignment: .leading) {
-                                Text("Table")
-                                    .font(.subheadline)
-                                    .foregroundColor(Color(UIColor(hex: "#387440")))
-                                TextField("Table Number", text: $table)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                            }
-                            VStack(alignment: .leading) {
-                                Text("Owner")
-                                    .font(.subheadline)
-                                    .foregroundColor(Color(UIColor(hex: "#387440")))
-                                TextField("Owner's Name", text: $owner)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                            VStack{
+                                HStack{
+                                    Text("Table")
+                                        .font(.subheadline)
+                                        .foregroundColor(Color(UIColor(hex: "#387440")))
+                                    TextField("Table Number", text: $table)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                }
+                                HStack{
+                                    Text("Owner")
+                                        .font(.subheadline)
+                                        .foregroundColor(Color(UIColor(hex: "#387440")))
+                                    TextField("Owner's Name", text: $owner)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                }
                             }
                             
                             // Button to update bill details
@@ -74,10 +76,8 @@ struct MenuView: View {
                                     .background(Color(UIColor(hex: "#387440")))
                                     .cornerRadius(8)
                             }
-                            
-                            
+                            .padding(.leading)
                         }
-                        .padding(.horizontal)
                         
 //                        // Button to update bill details
 //                        Button("Update Bill Details") {
@@ -91,28 +91,41 @@ struct MenuView: View {
                     }
                     .padding()
                     .background(Color(UIColor(hex: "#ddedb6")))
-                    .cornerRadius(20)
+                    .cornerRadius(10)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 10)
                             .stroke(Color(UIColor(hex: "#ddedb6")), lineWidth: 1)
                     )
 
                     // Search bar for products
-                    TextField("Search Products...", text: $searchQuery)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-
-                    // Button to navigate to Bill Details
-                    Button("View Bill Details") {
-                        navigateToBillDetails = true
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                            .padding(.leading, 2)
+                        
+                        TextField("SEARCH", text: $searchQuery)
+                        
+                        if !searchQuery.isEmpty {
+                            Button(action: {
+                                searchQuery = ""
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                                    .padding(.trailing, 3)
+                            }
+                        }
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .background(Color.white)
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 3)
+                    )
+                    .frame(width: 250, height: 20)
+                    .padding(.vertical)
 
-                    LazyVGrid(columns: columns, spacing: 20) {
+                    LazyVGrid(columns: columns) {
                         ForEach(filteredItems, id: \.id) { item in
                             MenuItemView(billId: billId, product: item)
                                 .frame(width: itemSize.width, height: itemSize.height)
@@ -133,6 +146,17 @@ struct MenuView: View {
                 EmptyView()
             }
         )
+        
+        // Button to navigate to Bill Details
+        Button("View Bill Details") {
+            navigateToBillDetails = true
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .foregroundColor(.white)
+        .background(Color(UIColor(hex: "#387440")))
+        .cornerRadius(8)
+        .padding([.horizontal, .bottom])
     }
 
     // Function to fetch bill details
