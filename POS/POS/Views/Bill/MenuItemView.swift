@@ -58,23 +58,20 @@ struct MenuItemView: View {
                         .font(.title)
                 }
             }
+            .padding(.bottom,3)
             
             // Add to cart button
-            Button(action: {
+            Button{
                 viewModel.addToCart(product: item, amount: quantity)
                 navigateToBillDetails = true
-            }) {
+            } label: {
                 Text("Add to Cart")
-                    .fontWeight(.bold)
+                    .frame(width: 150, height: 30)
                     .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
+                    .background(Color(UIColor(hex: "#387440")))
                     .cornerRadius(10)
             }
         }
         .padding()
-        .background(Color(UIColor.systemBackground))
-        .cornerRadius(10)
-        .shadow(radius: 3)
     }
 }

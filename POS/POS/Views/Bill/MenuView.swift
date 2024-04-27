@@ -129,9 +129,9 @@ struct MenuView: View {
                         ForEach(filteredItems, id: \.id) { item in
                             MenuItemView(billId: billId, product: item)
                                 .frame(width: itemSize.width, height: itemSize.height)
-                                .background(Color(UIColor.systemBackground))
+                                .background(.white)
                                 .cornerRadius(10)
-                                .shadow(radius: 2)
+                                .shadow(color:Color(UIColor(hex: "#387440")),radius: 2)
                         }
                     }
                 }
