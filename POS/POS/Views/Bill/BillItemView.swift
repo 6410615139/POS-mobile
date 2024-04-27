@@ -30,7 +30,7 @@ struct BillItemView: View {
                     .bold()
                 Text("Create at: \(Date(timeIntervalSince1970: item.createDate).formatted(date: .abbreviated, time: .shortened))")
                     .font(.footnote)
-                    .foregroundColor(Color(UIColor(hex: "#ddedb6")))
+                    .foregroundColor(!item.status ? Color(UIColor(hex: "#ddedb6")) : .gray)
             }
             .contentShape(Rectangle())
             .onTapGesture {
@@ -39,7 +39,7 @@ struct BillItemView: View {
             .background(NavigationLink("", destination: MenuView(billId: item.id)).hidden())
             Spacer()
         }
-        .foregroundColor(.white)
+        .foregroundColor(!item.status ? .white : .black)
         .padding(.horizontal,5)
     }
 }
