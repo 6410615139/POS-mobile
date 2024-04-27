@@ -41,7 +41,7 @@ struct NewProductView: View {
     
     var body: some View {
         VStack {
-            Text("New Item")
+            Text("New Product")
                 .font(.system(size: 32))
                 .bold()
                 .padding(.top, 50)
@@ -59,7 +59,7 @@ struct NewProductView: View {
                     .keyboardType(.decimalPad) // Show numeric keyboard
                     .textFieldStyle(DefaultTextFieldStyle())
                 
-                POSButton(title: "Save", background: .pink) {
+                POSButton(title: "Save", background: Color(UIColor(hex: "#387440"))) {
                     viewModel.save()
                     newProductPresented = false
                 }

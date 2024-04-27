@@ -38,10 +38,36 @@ struct StockView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                TextField("Search products...", text: $searchQuery)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+            VStack {                
+                HStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                            .padding(.leading, 2)
+                        
+                        TextField("SEARCH", text: $searchQuery)
+                        
+                        if !searchQuery.isEmpty {
+                            Button(action: {
+                                searchQuery = ""
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(Color(UIColor(hex: "#9ED461")))
+                                    .padding(.trailing, 3)
+                            }
+                        }
+                    }
+                    .padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+                    .background(Color.white)
+                    .cornerRadius(25)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color(UIColor(hex: "#9ED461")), lineWidth: 3)
+                    )
+                    .frame(width: 270, height: 30)
+                    Spacer()
+                }
+                .padding([.horizontal, .top])
                 
                 ScrollView {
                     ForEach(filteredItems, id: \.id) { item in
@@ -74,6 +100,7 @@ struct StockView: View {
                             showingNewProductSheet = true
                         }) {
                             Image(systemName: "plus")
+                                .foregroundColor(Color(UIColor(hex: "#387440")))
                         }
                     }
                 }
@@ -82,6 +109,7 @@ struct StockView: View {
                         isEditMode.toggle()
                     }) {
                         Image(systemName: isEditMode ? "checkmark.circle" : "gear")
+                            .foregroundColor(Color(UIColor(hex: "#387440")))
                     }
                 }
             }
