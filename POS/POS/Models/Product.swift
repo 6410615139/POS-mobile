@@ -10,10 +10,10 @@ import Foundation
 struct Product: Codable, Identifiable, Hashable {
     let id: String
     var product_name: String
-    var details: String
+//    var details: String
     var price: Double
-    var image_path: String
-    var catagory: String
+//    var image_path: String
+//    var catagory: String
     var amount: Int
     
 }
