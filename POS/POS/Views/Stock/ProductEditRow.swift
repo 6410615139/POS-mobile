@@ -27,7 +27,7 @@ struct ProductEditRow: View {
             Spacer()
             HStack {
                 Button(action: {
-                    if amount > 1 { amount -= 1 }
+                    if amount > 0 { amount -= 1 }
                     let newProduct = Product(id: product.id, product_name: product.product_name, price: product.price, amount: amount)
                     onUpdate(newProduct)
                     viewModel.updateProduct(newProduct)
