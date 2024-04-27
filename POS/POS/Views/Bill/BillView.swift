@@ -107,6 +107,7 @@ struct BillView: View {
                         ForEach(filteredItems, id: \.id) { item in
                             if (isPaid == item.status) {
                                 BillItemView(item: item)
+                                    .padding(.horizontal, 5)
                                     .frame(width: itemSize.width, height: itemSize.height)
                                     .background(!item.status ? Color(UIColor(hex: "#387440")) : Color(UIColor(hex: "#CBCBCB")))
                                     .overlay(

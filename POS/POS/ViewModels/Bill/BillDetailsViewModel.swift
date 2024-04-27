@@ -25,6 +25,7 @@ class BillDetailsViewModel: ObservableObject {
     }
     
     func fetch_item() {
+        self.calculateTotal()
         db.collection("bills").document(itemId).getDocument { [weak self] snapshot, error in
             guard let data = snapshot?.data(), error == nil else {
                 return
@@ -101,16 +102,16 @@ class BillDetailsViewModel: ObservableObject {
     }
     
     private func calculateTotal() {
-            guard let orders = orders else {
-                self.totalString = "0"
-                return
-            }
-            let total = orders.reduce(0) { (result, order) -> Double in
-                // Assuming each order contains a 'price' field and you need to multiply by 'amount'
-                // Adjust calculation as necessary based on your actual data model
-                return result + (Double(order.amount) * (order.product.price ?? 0.0))
-            }
-            // Format the total as a string suitable for display
-            self.totalString = String(format: "%.2f", total)
+        guard let orders = orders else {
+            self.totalString = "0"
+            return
         }
+        let total = orders.reduce(0) { (result, order) -> Double in
+            // Assuming each order contains a 'price' field and you need to multiply by 'amount'
+            // Adjust calculation as necessary based on your actual data model
+            return result + (Double(order.amount) * (order.product.price ?? 0.0))
+        }
+        // Format the total as a string suitable for display
+        self.totalString = String(format: "%.2f", total)
+    }
 }
