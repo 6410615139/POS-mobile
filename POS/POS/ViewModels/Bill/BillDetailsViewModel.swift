@@ -60,6 +60,24 @@ class BillDetailsViewModel: ObservableObject {
         // Optionally, fetch orders again to refresh the data
         self.fetchOrders()
     }
+    
+    func updateBillStatus(value: Bool) {
+        let db = Firestore.firestore()
+        let orderRef = db.collection("bills").document(itemId)
+
+        // Prepare the data dictionary to update only the 'amount' field
+        let updateData = ["status": value]
+
+        orderRef.updateData(updateData) { error in
+            if let error = error {
+                print("Error updating order: \(error.localizedDescription)")
+            } else {
+                print("Order successfully updated")
+            }
+        }
+        // Optionally, fetch orders again to refresh the data
+        self.fetchOrders()
+    }
 
     func deleteOrder(orderId: String) {
         db.collection("bills").document(itemId).collection("orders").document(orderId).delete { error in
