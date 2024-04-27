@@ -17,12 +17,17 @@ struct PaymentProcessingView: View {
             .frame(width: 350, height: 350)
             .cornerRadius(8)
 
-            Button("Mark as Paid") {
+            Button{
                 // This sets the bill status to true indicating it has been paid
                 viewModel.updateBillStatus(value: true)
+            } label: {
+                Text("Mark as Paid")
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color(UIColor(hex: "#387440")))
             }
-            .buttonStyle(.borderedProminent)
             .padding()
+            
         }
     }
 }

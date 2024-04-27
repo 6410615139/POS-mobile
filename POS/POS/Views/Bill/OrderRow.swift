@@ -9,21 +9,29 @@ import SwiftUI
 
 struct OrderRow: View {
     var order: Order
+    
+    var columns: [GridItem] = [
+        GridItem(.flexible(), spacing: 7, alignment: .leading),
+        GridItem(.fixed(100), spacing: 7, alignment: .center)
+    ]
 
     var body: some View {
-        HStack {
-            Text(order.product.product_name)
-                .font(.headline)  // Prominent font for the product name
-            Spacer()  // Pushes the text to the left and number to the right
-            Text("x\(order.product.price)")
-                .font(.subheadline)  // Slightly smaller font for the amount
-                .foregroundColor(.secondary)
-            Text("x\(order.amount)")  // Displays the amount of the product ordered
-                .font(.subheadline)  // Slightly smaller font for the amount
-                .foregroundColor(.secondary)  // Greyed out color for less emphasis
+        LazyVGrid(columns: columns){
+            HStack{
+                Text(order.product.product_name)
+                    .font(.headline)
+                Text(String(format: "x%.2f", order.product.price))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading) // Fill the available width
+            .background(.white)
+            
+            Text("x\(order.amount)")
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+                .background(.white)
         }
-        .padding()  // Padding around the HStack content
-        .background(Color(UIColor.secondarySystemBackground))  // Light grey background to differentiate rows
-        .cornerRadius(8)  // Rounded corners for a smooth design
     }
 }

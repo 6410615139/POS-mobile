@@ -75,9 +75,10 @@ struct BillView: View {
                         isPaid.toggle()
                     } label: {
                         Text(isPaid ? "Paid": "Unpaid")
-                        Image(systemName: isPaid ? "dollarsign.circle.fill": "dollarsign.circle")
+                        Image(systemName: "line.3.horizontal.decrease.circle")
 
                     }
+                    .foregroundColor(Color(UIColor(hex: "#387440")))
                 }
                 .padding([.horizontal, .top])
                     

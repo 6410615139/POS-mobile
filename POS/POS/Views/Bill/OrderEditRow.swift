@@ -19,12 +19,32 @@ struct OrderEditRow: View {
         self._amount = State(initialValue: order.amount)
         self.onUpdate = onUpdate
     }
+    
+    var columns: [GridItem] = [
+        GridItem(.fixed(50), spacing: 5),
+        GridItem(.flexible(), spacing: 7, alignment: .leading),
+        GridItem(.fixed(100), spacing: 7, alignment: .center)
+    ]
 
     var body: some View {
-        HStack {
+//        HStack {
+        LazyVGrid(columns: columns){
+            Button(action: {
+                viewModel.deleteOrder(orderId: order.id)
+            }) {
+                Image(systemName: "trash")
+                    .foregroundColor(.white)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading) // Fill the available width
+            .background(.red)
+            
             Text(order.product.product_name)
                 .font(.headline)
-            Spacer()
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading) // Fill the available width
+                .background(.white)
+            
             HStack {
                 Button(action: {
                     if amount > 1 { amount -= 1 }
@@ -35,8 +55,7 @@ struct OrderEditRow: View {
                 }) {
                     Image(systemName: "minus.circle")
                 }
-                Text("x\(amount)")
-                    .font(.subheadline)
+                Text("\(amount)")
                 Button(action: {
                     amount += 1
                     let newOrder = Order(id: order.id, amount: amount, product: order.product)
@@ -45,17 +64,10 @@ struct OrderEditRow: View {
                 }) {
                     Image(systemName: "plus.circle")
                 }
-                Button(action: {
-                    viewModel.deleteOrder(orderId: order.id)
-                }) {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
-                }
             }
-            .foregroundColor(.secondary)
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+            .background(.white)
         }
-        .padding()
-        .background(Color(UIColor.secondarySystemBackground))
-        .cornerRadius(8)
     }
 }

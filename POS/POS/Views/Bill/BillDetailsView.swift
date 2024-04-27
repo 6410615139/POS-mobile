@@ -29,7 +29,9 @@ struct BillDetailsView: View {
                         }
                     }
                 }
-                .padding(.horizontal)
+                .padding()
+                .background(Color(UIColor(hex: "#ddedb6")))
+                .cornerRadius(10)
             }
 
             VStack {
@@ -52,7 +54,7 @@ struct BillDetailsView: View {
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.green)
+                            .background(Color(UIColor(hex: "#387440")))
                             .cornerRadius(10)
                     }
                     .padding(.horizontal)
@@ -71,10 +73,12 @@ struct BillDetailsView: View {
                         isEditMode.toggle()
                     }) {
                         Image(systemName: isEditMode ? "checkmark.circle" : "gear")
+                            .foregroundColor(Color(UIColor(hex: "#387440")))
                     }
                 }
             }
         }
         .onAppear(perform: viewModel.fetchOrders)
+        .padding()
     }
 }
