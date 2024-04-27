@@ -15,6 +15,7 @@ struct StockView: View {
     @FirestoreQuery(collectionPath: "products") var allItems: [Product]
     @State private var showDeleteConfirmation = false
     @State private var itemToDelete: Product? = nil
+    @State private var showingNewProductSheet = false  // State to control the visibility of the new product sheet
     
     private let itemSize: CGSize = CGSize(width: 150, height: 150)
     
@@ -35,7 +36,7 @@ struct StockView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Search bills...", text: $searchQuery)
+                TextField("Search products...", text: $searchQuery)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
@@ -46,7 +47,19 @@ struct StockView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Bills")
+            .navigationTitle("Stock")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showingNewProductSheet = true
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+            .sheet(isPresented: $showingNewProductSheet) {
+                NewProductView(newProductPresented: $showingNewProductSheet)
+            }
         }
     }
 }

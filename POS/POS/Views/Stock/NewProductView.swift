@@ -26,6 +26,19 @@ struct NewProductView: View {
         )
     }
     
+    private var amountBinding: Binding<String> {
+        Binding<String>(
+            get: {
+                String(format: "%d", viewModel.amount)
+            },
+            set: {
+                if let value = NumberFormatter().number(from: $0)?.intValue {
+                    viewModel.amount = value // Update the Double value when the String changes
+                }
+            }
+        )
+    }
+    
     var body: some View {
         VStack {
             Text("New Item")
@@ -39,6 +52,10 @@ struct NewProductView: View {
                 
                 // Use the custom binding for price
                 TextField("Price", text: priceBinding)
+                    .keyboardType(.decimalPad) // Show numeric keyboard
+                    .textFieldStyle(DefaultTextFieldStyle())
+                
+                TextField("Amount", text: amountBinding)
                     .keyboardType(.decimalPad) // Show numeric keyboard
                     .textFieldStyle(DefaultTextFieldStyle())
                 
