@@ -18,6 +18,10 @@ struct MenuView: View {
     @State private var owner: String = ""
     @State private var searchQuery = ""  // For product search
     @State private var navigateToBillDetails = false  // State for navigation
+    
+    @State private var initialTable: String = ""
+    @State private var initialOwner: String = ""
+    @State private var isUpdate = false // State to toggle edit mode
 
     private var columns: [GridItem] = [
         GridItem(.flexible(), spacing: 20),
@@ -47,38 +51,67 @@ struct MenuView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     // Input fields for table and owner
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Table")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            TextField("Table Number", text: $table)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                    VStack{
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Table")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color(UIColor(hex: "#387440")))
+                                TextField("Table Number", text: $table)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .onChange(of: table) { newValue in
+                                        isUpdate = newValue != initialTable
+                                    }
+                            }
+                            VStack(alignment: .leading) {
+                                Text("Owner")
+                                    .font(.subheadline)
+                                    .foregroundColor(Color(UIColor(hex: "#387440")))
+                                TextField("Owner's Name", text: $owner)
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .onChange(of: owner) { newValue in
+                                        isUpdate = newValue != initialOwner
+                                    }
+                            }
+                            
+                            // Button to update bill details
+                            Button{
+                                updateBillDetails()
+                                isUpdate.toggle()
+                            } label: {
+                                Image(systemName: isUpdate ? "circle" : "checkmark.circle")
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .background(Color(UIColor(hex: "#387440")))
+                            .cornerRadius(8)
+                            
                         }
-                        VStack(alignment: .leading) {
-                            Text("Owner")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            TextField("Owner's Name", text: $owner)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                        }
+                        .padding(.horizontal)
+                        
+//                        // Button to update bill details
+//                        Button("Update Bill Details") {
+//                            updateBillDetails()
+//                        }
+//                        .padding()
+//                        .frame(maxWidth: .infinity)
+//                        .foregroundColor(.white)
+//                        .background(Color(UIColor(hex: "#387440")))
+//                        .cornerRadius(8)
                     }
                     .padding()
+                    .background(Color(UIColor(hex: "#ddedb6")))
+                    .cornerRadius(20)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color(UIColor(hex: "#ddedb6")), lineWidth: 1)
+                    )
 
                     // Search bar for products
                     TextField("Search Products...", text: $searchQuery)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
-
-                    // Button to update bill details
-                    Button("Update Bill Details") {
-                        updateBillDetails()
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
 
                     // Button to navigate to Bill Details
                     Button("View Bill Details") {
@@ -102,7 +135,6 @@ struct MenuView: View {
                 }
                 .padding()
             }
-            .navigationBarTitle("Order", displayMode: .inline)
             .onAppear {
                 fetchBillDetails()
             }
@@ -116,6 +148,9 @@ struct MenuView: View {
 
     // Function to fetch bill details
     private func fetchBillDetails() {
+        self.initialTable = self.table
+        self.initialOwner = self.owner
+        
         Firestore.firestore().collection("bills").document(billId).getDocument { document, error in
             if let document = document, document.exists {
                 let data = document.data()
@@ -129,6 +164,9 @@ struct MenuView: View {
 
     // Function to update bill details
     private func updateBillDetails() {
+        self.initialTable = self.table
+        self.initialOwner = self.owner
+        
         let billRef = Firestore.firestore().collection("bills").document(billId)
         billRef.updateData([
             "table": table,
