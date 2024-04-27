@@ -10,10 +10,14 @@ import Foundation
 struct Product: Codable, Identifiable, Hashable {
     let id: String
     var product_name: String
-//    var details: String
     var price: Double
-//    var image_path: String
-//    var catagory: String
     var amount: Int
     
+    func toDictionary() -> [String: Any] {
+            return [
+                "product_name": product_name,
+                "price": price,
+                "amount": amount
+            ]
+        }
 }
