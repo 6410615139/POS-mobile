@@ -26,11 +26,11 @@ struct MainView: View {
         VStack(spacing: 0) {
             // Content views
             switch selectedTab {
-            case 0:
+            case 2:
                 AnnounceView(user: user)
             case 1:
                 DashboardView()
-            case 2:
+            case 0:
                 BillView()
             case 3:
                 StockView(user: user)
@@ -46,9 +46,9 @@ struct MainView: View {
                     .foregroundColor(Color(UIColor(hex: "#9ed461")))
                     .frame(height: 7)
                 HStack {
-                    customTabBarItem(selectedTab: $selectedTab, index: 0, label: "Home", icon: "house.fill")
+                    customTabBarItem(selectedTab: $selectedTab, index: 2, label: "Home", icon: "house.fill")
                     customTabBarItem(selectedTab: $selectedTab, index: 1, label: "Dashboard", icon: "clipboard.fill")
-                    customTabBarItem(selectedTab: $selectedTab, index: 2, label: "Bill", icon: "newspaper.fill")
+                    customTabBarItem(selectedTab: $selectedTab, index: 0, label: "Bill", icon: "newspaper.fill")
                     customTabBarItem(selectedTab: $selectedTab, index: 3, label: "Stock", icon: "shippingbox.fill")
                     customTabBarItem(selectedTab: $selectedTab, index: 4, label: "Profile", icon: "person.circle")
                 }
