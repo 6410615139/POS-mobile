@@ -94,7 +94,7 @@ struct ProfileView: View {
                 }
             }
             .fullScreenCover(isPresented: $showingEditPage, onDismiss: viewModel.fetchUser) {EditProfileView(viewModel: viewModel)}
-            .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetchUser) {StaffHistory()}
+            .fullScreenCover(isPresented: $showingHistoryPage, onDismiss: viewModel.fetchUser) {UserHistoryView(viewModel: viewModel)}
             .padding(.horizontal ,30)
             
             // Picture
