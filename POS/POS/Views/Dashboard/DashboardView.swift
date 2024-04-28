@@ -9,23 +9,75 @@ import SwiftUI
 import FirebaseFirestoreSwift
 
 struct DashboardView: View {
-    @StateObject var viewModel = DashboardViewModel()
+    @StateObject private var viewModel = DashboardViewModel()
 
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Sales Section
-                DashboardSectionView(title: "Sales", iconName: "dollarsign.circle", color: .green, content: "\(viewModel.totalSales)$")
+                DashboardSectionView(
+                    title: "Sales",
+                    iconName: "dollarsign.circle",
+                    color: .green,
+                    content: "\(viewModel.totalSales)$"
+                )
                 
-                // Best Seller Section
-                if let bestSeller = viewModel.bestSellerProduct {
-                    DashboardSectionView(title: "Best Seller", iconName: "star.circle", color: .blue, content: bestSeller.product_name)
+                // Displaying best sellers
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Best Sellers")
+                        .font(.title2)
+                        .bold()
+
+                    // Check if there are product counts to display
+                    // Displaying product counts in reverse order
+                    if !viewModel.myProductCounts.isEmpty {
+                        let sortedKeys = viewModel.myProductCounts.keys.sorted {
+                            (viewModel.myProductCounts[$0]?.count ?? 0) > (viewModel.myProductCounts[$1]?.count ?? 0)
+                        }
+
+                        ForEach(sortedKeys, id: \.self) { key in
+                            if let count = viewModel.myProductCounts[key]?.count,
+                               let productName = viewModel.myProductCounts[key]?.product.product_name {
+                                Text("\(productName): \(count) sold")
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(8)
+                                    .shadow(radius: 3)
+                            }
+                        }
+                    } else {
+                        Text("No product sales data available.")
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(8)
+                            .shadow(radius: 3)
+                    }
+                    
                 }
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
-        }    }
+        }
+    }
 }
 
+struct DashboardRow: View {
+    var product: Product
+
+    var body: some View {
+        HStack {
+            Text(product.product_name)
+                .bold()
+            Spacer()
+            Text("\(product.price, specifier: "%.2f")$")
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(radius: 5)
+    }
+}
 
 struct DashboardSectionView: View {
     var title: String
@@ -34,24 +86,25 @@ struct DashboardSectionView: View {
     var content: String
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Image(systemName: iconName)
                     .resizable()
+                    .scaledToFit()
                     .frame(width: 30, height: 30)
                     .foregroundColor(color)
                 Text(title)
-                    .font(.title)
-                    .fontWeight(.semibold)
+                    .font(.title2)
+                    .fontWeight(.bold)
             }
             .padding()
             .background(color.opacity(0.2))
             .cornerRadius(10)
 
             Text(content)
-
+                .font(.headline)
         }
-        .padding(.horizontal)
+        .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white)
         .cornerRadius(10)

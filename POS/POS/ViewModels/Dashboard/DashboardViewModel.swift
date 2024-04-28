@@ -11,8 +11,10 @@ import FirebaseFirestoreSwift
 
 class DashboardViewModel: ObservableObject {
     @Published var totalSales: Double = 0.0
-    @Published var bestSellerProduct: Product?
+    @Published var bestSellerProduct: [Product]?
+    @Published var myProductCounts: [String: (product: Product, count: Int)] = [:]
     private var orders: [Order]? = []
+    
 
     private var db = Firestore.firestore()
 
@@ -130,7 +132,8 @@ class DashboardViewModel: ObservableObject {
                         print("\(product.product_name) with count \(productCounts[product.id]?.count ?? 0)")
                     }
                     // Optionally store only the first or all three best-selling products
-                    self.bestSellerProduct = topThreeBestSellers.first
+                    self.bestSellerProduct = topThreeBestSellers
+                    self.myProductCounts = productCounts
                 } else {
                     print("No best sellers identified.")
                 }
