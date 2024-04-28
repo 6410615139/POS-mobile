@@ -12,6 +12,13 @@ struct UserManageView: View {
     @State private var isEditing = false
     @StateObject private var viewModel = UserManageViewModel()
     
+    var columns: [GridItem] = [
+        GridItem(.fixed(150), spacing: 5, alignment: .leading),
+        GridItem(.fixed(110), spacing: 5, alignment: .leading),
+        GridItem(.fixed(110), spacing: 5, alignment: .leading),
+        GridItem(.fixed(110), spacing: 5, alignment: .leading)
+    ]
+    
     var body: some View {
         Form {
             Section(header: Text("User Info")) {
@@ -41,29 +48,43 @@ struct UserManageView: View {
                 isEditing.toggle()
             }
             
-            Section(header: Text("Clock History")) {
+            Section(header: Text("WorkTime History")) {
                 if viewModel.timeRecords.isEmpty {
                     Text("No records found")
                 } else {
-                    ForEach(viewModel.timeRecords, id: \.id) { record in
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack {
-                                Image(systemName: "clock.arrow.circlepath")
-                                    .foregroundColor(.green)
-                                Text("Clock-In: \(record.clockInTimeFormatted)")
-                            }
-                            HStack {
-                                Image(systemName: "clock.fill")
-                                    .foregroundColor(.red)
-                                Text("Clock-Out: \(record.clockOutTimeFormatted)")
-                            }
-                            HStack {
-                                Image(systemName: "hourglass.bottomhalf.fill")
-                                    .foregroundColor(.purple)
-                                Text("Work Duration: \(record.workDurationTimeFormatted)")
+                    ScrollView(.horizontal){
+                        LazyVGrid(columns: columns){
+                            Text("Date")
+                                .font(.headline)
+                                .padding()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+                                .background(Color(UIColor(hex: "#387440")))
+                            Text("In")
+                                .font(.headline)
+                                .padding()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+                                .background(Color(UIColor(hex: "#387440")))
+                            Text("Out")
+                                .font(.headline)
+                                .padding()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+                                .background(Color(UIColor(hex: "#387440")))
+                            Text("Duration")
+                                .font(.headline)
+                                .padding()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center) // Fill the available width
+                                .background(Color(UIColor(hex: "#387440")))
+                        }
+                        
+                        ForEach(viewModel.timeRecords, id: \.id) { record in
+                            VStack(alignment: .leading, spacing: 5) {
+                                HistoryRow(timeRecord: record)
                             }
                         }
-                        .padding(.vertical)
                     }
                 }
             }
