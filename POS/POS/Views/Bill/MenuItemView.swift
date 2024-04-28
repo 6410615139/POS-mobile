@@ -67,8 +67,9 @@ struct MenuItemView: View {
             } label: {
                 Text("Add to Cart")
                     .frame(width: 150, height: 30)
+                    .bold()
                     .foregroundColor(.white)
-                    .background(Color(UIColor(hex: "#387440")))
+                    .background(Color(UIColor(hex: "#9ED461")))
                     .cornerRadius(10)
             }
         }
