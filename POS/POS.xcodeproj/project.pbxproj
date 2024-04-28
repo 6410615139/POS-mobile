@@ -13,6 +13,8 @@
 		7BCD6E402BD4F91C000F6162 /* UserManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD6E3F2BD4F91C000F6162 /* UserManageView.swift */; };
 		7BCD6E432BD4F994000F6162 /* UserManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BCD6E422BD4F994000F6162 /* UserManageViewModel.swift */; };
 		7BCE97802BC0FD8800EBB99B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BCE977F2BC0FD8800EBB99B /* GoogleService-Info.plist */; };
+		C34117562BDE516A008BE2A4 /* HeaderLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34117552BDE516A008BE2A4 /* HeaderLogin.swift */; };
+		C34117582BDE534E008BE2A4 /* LogIn_background.png in Resources */ = {isa = PBXBuildFile; fileRef = C34117572BDE534E008BE2A4 /* LogIn_background.png */; };
 		C35ED6CC2BBC605300E18856 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35ED6CB2BBC605300E18856 /* DashboardView.swift */; };
 		C35ED6CE2BBC605E00E18856 /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35ED6CD2BBC605E00E18856 /* StockView.swift */; };
 		C35ED6D02BBC63EB00E18856 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35ED6CF2BBC63EA00E18856 /* EditProfileView.swift */; };
@@ -106,6 +108,8 @@
 		7BCD6E3F2BD4F91C000F6162 /* UserManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageView.swift; sourceTree = "<group>"; };
 		7BCD6E422BD4F994000F6162 /* UserManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManageViewModel.swift; sourceTree = "<group>"; };
 		7BCE977F2BC0FD8800EBB99B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C34117552BDE516A008BE2A4 /* HeaderLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLogin.swift; sourceTree = "<group>"; };
+		C34117572BDE534E008BE2A4 /* LogIn_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogIn_background.png; sourceTree = "<group>"; };
 		C35ED6CB2BBC605300E18856 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		C35ED6CD2BBC605E00E18856 /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
 		C35ED6CF2BBC63EA00E18856 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 				CE7F6FDF2BBFEDFA00F7B564 /* myButton.swift */,
 				CE8E6B2C2B9F4E1600F19E3D /* POSButton.swift */,
 				CE8E6B262B9F4D3F00F19E3D /* HeaderView.swift */,
+				C34117552BDE516A008BE2A4 /* HeaderLogin.swift */,
 				C3B89C222BD7C0C80073EF27 /* customTabBarItem.swift */,
 			);
 			path = Others;
@@ -453,6 +458,7 @@
 				CE8E6AF22B9F46F400F19E3D /* POSApp.swift */,
 				CE8E6AF62B9F46F500F19E3D /* Assets.xcassets */,
 				CE8E6B362B9F4EC500F19E3D /* Extensions.swift */,
+				C34117572BDE534E008BE2A4 /* LogIn_background.png */,
 				7BCE977F2BC0FD8800EBB99B /* GoogleService-Info.plist */,
 			);
 			path = Others;
@@ -559,6 +565,7 @@
 				CE8E6AFA2B9F46F500F19E3D /* Preview Assets.xcassets in Resources */,
 				CE8E6AF72B9F46F500F19E3D /* Assets.xcassets in Resources */,
 				7BCE97802BC0FD8800EBB99B /* GoogleService-Info.plist in Resources */,
+				C34117582BDE534E008BE2A4 /* LogIn_background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +584,7 @@
 				CE8E6B392B9F4EF900F19E3D /* ProfileView.swift in Sources */,
 				CE8E6B332B9F4E8000F19E3D /* RegisterViewModel.swift in Sources */,
 				CE8E6B2D2B9F4E1600F19E3D /* POSButton.swift in Sources */,
+				C34117562BDE516A008BE2A4 /* HeaderLogin.swift in Sources */,
 				CE8E6B432B9F5E9200F19E3D /* Post.swift in Sources */,
 				CE8E6B272B9F4D3F00F19E3D /* HeaderView.swift in Sources */,
 				CE6C334B2BC5204600D754A8 /* MenuView.swift in Sources */,
