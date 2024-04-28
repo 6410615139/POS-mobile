@@ -224,22 +224,22 @@
 			path = Post;
 			sourceTree = "<group>";
 		};
-		7BCD6E3E2BD4F907000F6162 /* Owner */ = {
+		7BCD6E3E2BD4F907000F6162 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				7BCD6E3A2BD4F89D000F6162 /* ManageView.swift */,
 				7BCD6E3F2BD4F91C000F6162 /* UserManageView.swift */,
 			);
-			path = Owner;
+			path = Manager;
 			sourceTree = "<group>";
 		};
-		7BCD6E412BD4F981000F6162 /* Owner */ = {
+		7BCD6E412BD4F981000F6162 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				7BCD6E3C2BD4F8B1000F6162 /* ManageViewModel.swift */,
 				7BCD6E422BD4F994000F6162 /* UserManageViewModel.swift */,
 			);
-			path = Owner;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		CE6C333F2BC5068500D754A8 /* Bill */ = {
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				7B9750DA2BD80A59005565ED /* Post */,
-				7BCD6E3E2BD4F907000F6162 /* Owner */,
+				7BCD6E3E2BD4F907000F6162 /* Manager */,
 				CE6C333B2BC505C600D754A8 /* AnnounceView.swift */,
 				CE6C333D2BC505CC00D754A8 /* AnnounceItemView.swift */,
 			);
@@ -351,7 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				7B9750D72BD8061C005565ED /* Post */,
-				7BCD6E412BD4F981000F6162 /* Owner */,
+				7BCD6E412BD4F981000F6162 /* Manager */,
 				CE6C33372BC505AC00D754A8 /* AnnounceViewModel.swift */,
 			);
 			path = Announce;
