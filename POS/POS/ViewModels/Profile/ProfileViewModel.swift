@@ -15,9 +15,11 @@ class ProfileViewModel: ObservableObject {
     @Published var tel = ""
     @Published var gender: Gender = .undefined
     @Published var role = ""
+    @Published var timeRecords: [TimeRecord] = []
     
     init() {
         fetchUser()
+        fetchTimeRecords()
     }
     
     func fetchUser() {
@@ -35,6 +37,23 @@ class ProfileViewModel: ObservableObject {
                 print("Error decoding user: \(error)")
             }
         }
+    }
+    
+    func fetchTimeRecords() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(userId).collection("timeRecord")
+            .order(by: "clockInTime", descending: true)
+            .getDocuments { [weak self] (querySnapshot, error) in
+                if let error = error {
+                    print("Error fetching time records: \(error)")
+                } else {
+                    self?.timeRecords = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: TimeRecord.self)
+                    } ?? []
+                }
+            }
     }
     
     private func validate() -> Bool {

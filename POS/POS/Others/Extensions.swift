@@ -55,3 +55,33 @@ extension PostViewModel {
     }
 }
 
+extension TimeRecord {
+    var clockInTimeFormatted: String {
+        guard let clockInTime = clockInTime else { return "N/A" }
+        return formatDate(timeInterval: clockInTime)
+    }
+    
+    var clockOutTimeFormatted: String {
+        guard let clockOutTime = clockOutTime else { return "N/A" }
+        return formatDate(timeInterval: clockOutTime)
+    }
+
+    var workDurationTimeFormatted: String {
+        guard let duration = workDuration() else { return "N/A" }
+        return formatDuration(duration)
+    }
+
+    private func formatDate(timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yy HH:mm"
+        return formatter.string(from: date)
+    }
+
+
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let hours = Int(duration)
+        let minutes = Int((duration - Double(hours)) * 60)
+        return "\(hours)h \(minutes)min"
+    }
+}
