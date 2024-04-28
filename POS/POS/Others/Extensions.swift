@@ -65,6 +65,11 @@ extension TimeRecord {
         guard let clockOutTime = clockOutTime else { return "N/A" }
         return formatDate(timeInterval: clockOutTime)
     }
+    
+    var clockDateFormatted: String {
+        guard let clockInTime = clockInTime else { return "N/A" }
+        return formatDateMonth(timestamp: clockInTime)
+    }
 
     var workDurationTimeFormatted: String {
         guard let duration = workDuration() else { return "N/A" }
@@ -74,10 +79,16 @@ extension TimeRecord {
     private func formatDate(timeInterval: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: timeInterval)
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yy HH:mm"
+        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
-
+    
+    private func formatDateMonth(timestamp: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM" // Adjust the format to your needs
+        return dateFormatter.string(from: date)
+    }
 
     private func formatDuration(_ duration: TimeInterval) -> String {
         let hours = Int(duration)
